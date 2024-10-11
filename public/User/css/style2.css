@@ -1,0 +1,109 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    width: 70%;
+    background-size: cover;
+}
+
+.right-panel {
+    width: 30%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+
+}
+
+.right-panel h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.right-panel h1 i {
+    color: #6ab04c;
+    margin-right: 10px;
+}
+
+.right-panel h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.right-panel form {
+    width: 100%;
+}
+
+.right-panel input[type="email"],
+.right-panel input[type="password"],
+.right-panel button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-sizing: border-box; /* Tambahkan ini untuk memastikan lebar termasuk padding dan border */
+}
+
+.right-panel input[type="email"],
+.right-panel input[type="password"] {
+    border: 1px solid #adadad;
+    background-color: #ffffff; /* Warna putih untuk form */
+    color: #000000; /* Warna hitam untuk teks */
+}
+
+.right-panel button {
+    border: none;
+    background-color: #00aaff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.right-panel h1, .right-panel h2, .right-panel a {
+    color: #000000; /* Ubah teks judul dan link ke warna hitam */
+}
+
+.right-panel a {
+    color: #00aaff;
+    text-decoration: none;
+}
+
+/* Style for the back button */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #00aaff;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    z-index: 1;
+}
+
+.back-button i {
+    margin-right: 8px;
+}
+
+.back-button:hover {
+    background-color: #0088cc;
+}
+
+/* Adjust the z-index to ensure it's above other content */
+.right-panel,
+.left-panel {
+    position: relative;
+}
