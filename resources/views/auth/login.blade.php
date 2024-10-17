@@ -17,6 +17,13 @@
             <h1><i class="fas fa-dove"></i>Logo</h1>
             <h2>Log in</h2>
 
+            <form action="{{ route('login') }}" method="POST">
+                @csrf <!-- Tambahkan token CSRF -->
+                <input type="email" name="email" placeholder="Email address" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">LOGIN</button>
+            </form>
+
             <!-- Tampilkan error jika ada -->
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -28,14 +35,8 @@
                 </div>
             @endif
 
-            <form action="{{ route('login') }}" method="POST">
-                @csrf <!-- Tambahkan token CSRF -->
-                <input type="email" name="email" placeholder="Email address" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">LOGIN</button>
-            </form>
             <a href="#">Forgot password?</a>
-            <p>Don't have an account? <a href="#">Register here</a></p>
+            <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p> <!-- Route ke register -->
         </div>
     </div>
 </body>

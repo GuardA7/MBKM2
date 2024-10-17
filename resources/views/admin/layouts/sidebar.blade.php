@@ -28,7 +28,7 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 List Pelatihan
             </a>
-            <a class="nav-link" href="/sertifikat">
+            <a class="nav-link" href="/certificates">
                 <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
                 Sertifikat
             </a>

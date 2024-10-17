@@ -7,11 +7,18 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // Menampilkan form login
+    // show login
     public function showLoginForm()
     {
         return view('auth.login');
     }
+
+    // show Register
+public function showRegisterForm()
+{
+    return view('auth.register');
+}
+
 
     // Menangani proses login
     public function login(Request $request)
@@ -31,7 +38,7 @@ class AuthController extends Controller
             if (Auth::user()->hasRole('admin')) {
                 return redirect()->route('admin.dashboard');
             } else {
-                return redirect()->route('user.index');
+                return redirect()->route('index');
             }
         }
 

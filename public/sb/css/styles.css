@@ -11241,3 +11241,129 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+
+
+
+/* CSS untuk latar belakang gambar */
+.hero-image {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Sesuaikan tinggi gambar */
+    overflow: hidden; /* Menghindari konten yang meluap */
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Memastikan gambar menutupi area */
+    transform: translateY(-30px); /* Menggeser gambar ke atas untuk efek tertutup */
+}
+
+.wave {
+    position: absolute; /* Mengubah menjadi absolute */
+    bottom: 0; /* Posisi gelombang di bawah gambar */
+    left: 0;
+    width: 100%;
+    height: 250px; /* Tinggi gelombang */
+    overflow: hidden;
+    z-index: 1; /* Agar gelombang berada di atas gambar */
+    transition: height 0.3s ease; /* Transisi untuk perubahan tinggi */
+}
+
+/* Media query untuk mengubah tinggi gelombang pada layar kecil */
+@media (max-width: 768px) { /* Anda dapat mengubah ukuran maksimum sesuai kebutuhan */
+    .wave {
+        height: 150px; /* Tinggi gelombang saat layar kecil */
+    }
+}
+
+/* Styling untuk card */
+.card {
+    margin: 20px 0; /* Jarak antar kartu */
+}
+
+.category-title {
+    text-align: center; /* Pusatkan judul */
+    margin: 20px 0; /* Jarak di atas dan bawah judul */
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.schedule {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.btn-primary {
+    background-color: #ff6f61;
+    border-color: #ff6f61;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ff4a3d;
+    transform: scale(1.05);
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Hero section styling */
+.hero-image {
+    position: relative;
+}
+
+.wave svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.content-container {
+    margin-top: -50px;
+}
