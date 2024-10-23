@@ -1,16 +1,22 @@
 @extends('user.layouts.app')
 
 @section('content')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifikat List</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+</head>
+<body>
+
 <div class="container">
-    <h1 class="mb-4">Sertifikat yang Telah Diupload</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <table class="table table-striped" id="sertifikatTable">
+    <h1>Sertifikat List</h1>
+    <table id="sertifikat-table" class="display">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Nama Pelatihan</th>
                 <th>Tanggal Berlaku</th>
                 <th>Tanggal Berakhir</th>
@@ -20,14 +26,16 @@
     </table>
 </div>
 
-@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script>
-    $(function() {
-        $('#sertifikatTable').DataTable({
+    $(document).ready(function() {
+        $('#sertifikat-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('certificates.data') }}',
+            ajax: '{{ route('sertifikat.data') }}',
             columns: [
+                { data: 'id', name: 'id' },
                 { data: 'nama_pelatihan', name: 'nama_pelatihan' },
                 { data: 'tanggal_berlaku', name: 'tanggal_berlaku' },
                 { data: 'tanggal_berakhir', name: 'tanggal_berakhir' },
@@ -36,5 +44,7 @@
         });
     });
 </script>
-@endsection
+
+</body>
+</html>
 @endsection

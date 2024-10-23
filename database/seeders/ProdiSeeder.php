@@ -3,30 +3,36 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Prodi;
+use Illuminate\Support\Facades\DB;
 
 class ProdiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $prodiList = [
-            'D3 TEKNIK MESIN',
-            'D3 TEKNIK PENDINGIN DAN TATA UDARA',
-            'D3 TEKNIK INFORMATIKA',
-            'D3 KEPERAWATAN',
-            'D4 PERANCANGAN MANUFAKTUR',
-            'D4 REKAYASA PERANGKAT LUNAK',
-            'D4 TEKNOLOGI REKAYASA INSTRUMENTASI DAN KONTROL',
-            'D4 SISTEM INFORMASI KOTA CERDAS',
-        ];
-
-        foreach ($prodiList as $prodi) {
-            Prodi::create(['nama' => $prodi]);
-        }
+        DB::table('prodis')->insert([
+            [
+                'nama' => 'Teknik Informatika',
+                'jurusan_id' => 1, // Assuming this is the ID of the 'Teknik Informatika' jurusan
+            ],
+            [
+                'nama' => 'Sistem Informasi',
+                'jurusan_id' => 1, // Belongs to the same jurusan
+            ],
+            [
+                'nama' => 'Teknik Elektro',
+                'jurusan_id' => 3, // Assuming this is the ID of 'Teknik Elektro'
+            ],
+            [
+                'nama' => 'Teknik Mesin',
+                'jurusan_id' => 4, // Assuming this is the ID of 'Teknik Mesin'
+            ],
+            [
+                'nama' => 'Manajemen Informatika',
+                'jurusan_id' => 2, // Assuming this is the ID of 'Manajemen Informatika'
+            ],
+        ]);
     }
 }

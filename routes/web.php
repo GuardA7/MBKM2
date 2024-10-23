@@ -32,12 +32,8 @@ Route::get('/index', function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //route Sertifikat
-
-
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/sertifikat/upload', [SertifikatController::class, 'create'])->name('sertifikat.create');
-    Route::post('/sertifikat/store', [SertifikatController::class, 'store'])->name('sertifikat.store');
-    Route::get('/certificates', [SertifikatController::class, 'index'])->name('certificates.index');
-    Route::get('/certificates/data', [SertifikatController::class, 'getData'])->name('certificates.data');
-});
+route::get('sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+Route::get('sertifikat/data', [SertifikatController::class, 'getData'])->name('sertifikat.data');
+Route::get('sertifikat/download/{id}', [SertifikatController::class, 'download'])->name('sertifikat.download');
+Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
+Route::post('/sertifikat/store', [SertifikatController::class, 'store'])->name('sertifikat.store');

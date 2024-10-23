@@ -1,4 +1,4 @@
-<nav class="sb-topnav navbar navbar-expand bg-transparent  shadow">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary shadow">
     <div class="container-fluid">
         <!-- Sidebar Toggle -->
         <button class="btn btn-link btn-sm me-3" id="sidebarToggle" href="#!">
