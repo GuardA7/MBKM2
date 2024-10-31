@@ -22,7 +22,6 @@ body {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.9);
     z-index: 1;
-
 }
 
 .right-panel h1 {
@@ -51,14 +50,14 @@ body {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    box-sizing: border-box; /* Tambahkan ini untuk memastikan lebar termasuk padding dan border */
+    box-sizing: border-box; /* Ensure width includes padding and border */
 }
 
 .right-panel input[type="email"],
 .right-panel input[type="password"] {
     border: 1px solid #adadad;
-    background-color: #ffffff; /* Warna putih untuk form */
-    color: #000000; /* Warna hitam untuk teks */
+    background-color: #ffffff; /* White background for form */
+    color: #000000; /* Black text */
 }
 
 .right-panel button {
@@ -69,8 +68,10 @@ body {
     cursor: pointer;
 }
 
-.right-panel h1, .right-panel h2, .right-panel a {
-    color: #000000; /* Ubah teks judul dan link ke warna hitam */
+.right-panel h1,
+.right-panel h2,
+.right-panel a {
+    color: #000000; /* Black text for titles and links */
 }
 
 .right-panel a {
@@ -102,8 +103,14 @@ body {
     background-color: #0088cc;
 }
 
-/* Adjust the z-index to ensure it's above other content */
+/* Adjust z-index */
 .right-panel,
 .left-panel {
     position: relative;
+}
+
+.logo {
+    max-width: 80%; /* Adjust width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space below the logo */
 }

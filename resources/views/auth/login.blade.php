@@ -14,7 +14,7 @@
         <div class="left-panel" style="background: url('{{ asset('User/img/DSC_5537-1320x600.jpg') }}') no-repeat center center; background-size: cover;"></div>
 
         <div class="right-panel">
-            <h1><i class="fas fa-dove"></i>Logo</h1>
+            <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Logo" class="logo img-fluid mb-4" style="max-width: 80%;">
             <h2>Log in</h2>
 
             <form action="{{ route('login') }}" method="POST">

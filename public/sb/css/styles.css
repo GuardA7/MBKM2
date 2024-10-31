@@ -4217,11 +4217,6 @@ textarea.form-control-lg {
   border-top: 0;
 }
 
-.card-body {
-  flex: 1 1 auto;
-  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-  color: var(--bs-card-color);
-}
 
 .card-title {
   margin-bottom: var(--bs-card-title-spacer-y);
@@ -11305,11 +11300,6 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
 .card-img-top {
     height: 200px;
     object-fit: cover;
@@ -11335,14 +11325,6 @@ body {
     color: #6c757d;
 }
 
-.btn-primary {
-    background-color: #ff6f61;
-    border-color: #ff6f61;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 30px;
-    transition: background-color 0.3s, transform 0.3s;
-}
 
 .btn-primary:hover {
     background-color: #ff4a3d;
@@ -11366,4 +11348,128 @@ body {
 
 .content-container {
     margin-top: -50px;
+}
+
+.sb-sidenav {
+    background-color: #f0f2f5;
+    /* Warna lebih terang untuk tampilan bersih */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #dcdde1;
+}
+
+/* Sidebar headings */
+.sb-sidenav-menu-heading {
+    font-size: 0.85rem;
+    color: #555a64;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    padding: 0 15px;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+}
+
+/* Sidebar links */
+.nav-link {
+    color: #4a4e57;
+    /* Warna abu-abu untuk teks */
+    font-size: 0.95rem;
+    padding: 12px 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Hover effects on links */
+.nav-link:hover {
+    background-color: #dfe4ea;
+    /* Warna abu muda untuk hover */
+    color: #343a40;
+    /* Teks lebih gelap saat hover */
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Icons for each section */
+.sb-nav-link-icon {
+    color: #868e96;
+    /* Warna ikon yang lebih redup */
+    transition: color 0.3s;
+}
+
+/* Active and collapsed link styles */
+.nav-link.collapsed .sb-nav-link-icon {
+    color: #3498db;
+    /* Warna biru saat collapse */
+}
+
+/* Active link styling */
+.nav-link.active {
+    /* Samakan dengan hover */
+    background-color: #dfe4ea;
+    color: #343a40;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Apply same icon color for active state */
+.nav-link.active .sb-nav-link-icon {
+    color: #343a40;
+    /* Ikon juga menjadi lebih gelap sama seperti hover */
+}
+
+/* Sidebar collapse arrow */
+.sb-sidenav-collapse-arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+/* Rotating arrow when expanded */
+.sb-sidenav-collapse-arrow.rotate {
+    transform: rotate(180deg);
+}
+
+/* Styling for sidebar footer */
+.sb-sidenav-footer {
+    background-color: #ebeff2;
+    /* Footer yang sedikit lebih terang */
+    padding: 15px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #868e96;
+    border-top: 1px solid #dcdde1;
+    margin-top: auto;
+}
+
+/* Customize icons' size and color */
+.sb-nav-link-icon i {
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+/* Footer text and small improvements */
+.sb-sidenav-footer .small {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #555a64;
+}
+
+/* General hover and focus states */
+.nav-link:focus,
+.nav-link:hover {
+    text-decoration: none;
+}
+
+/* Smoother animations */
+* {
+    scroll-behavior: smooth;
+}
+
+/* Adding slight shadow to the footer */
+.sb-sidenav-footer {
+    box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
 }

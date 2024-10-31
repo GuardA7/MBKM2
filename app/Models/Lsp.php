@@ -11,8 +11,11 @@ class Lsp extends Model
 
     protected $table = 'lsp';
 
+    protected $fillable = ['nama'];
+
     public function pelatihan()
     {
         return $this->hasMany(Pelatihan::class);
     }
+  
 }

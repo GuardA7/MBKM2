@@ -21,8 +21,8 @@
             </a>
             <div class="collapse" id="collapseSertifikat" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="/sertifikat">Lihat Sertifikat</a>
-                    <a class="nav-link" href="/sertifikat/create">Upload Sertifikat</a>
+                    <a class="nav-link" href="{{ route('sertifikat.index') }}">Lihat Sertifikat</a>
+                    <a class="nav-link" href="{{ route('sertifikat.create') }}">Upload Sertifikat</a>
                 </nav>
             </div>
 
@@ -37,8 +37,8 @@
             </a>
             <div class="collapse" id="collapseGrafik" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="/grafik/line">Grafik Sertifikat</a>
-                    <a class="nav-link" href="/grafik/bar">Presentase Mahasiswa</a>
+                    <a class="nav-link" href="{{ route('grafik.grafik') }}">Grafik Sertifikat</a>
+                    <a class="nav-link" href="{{ route('grafik.mahasiswa') }}">Presentase Mahasiswa</a>
                 </nav>
             </div>
 

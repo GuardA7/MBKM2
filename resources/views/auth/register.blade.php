@@ -6,196 +6,56 @@
     <title>Register Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="User/css/style2.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-
-        .left-panel {
-            width: 70%;
-            background: url('{{ asset('User/img/DSC_5537-1320x600.jpg') }}') no-repeat center center;
-            background-size: cover;
-        }
-
-        .right-panel {
-            width: 30%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            z-index: 1;
-        }
-
-        .right-panel h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .right-panel h1 i {
-            color: #6ab04c;
-            margin-right: 10px;
-        }
-
-        .right-panel h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .role-button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            background-color: #00aaff; /* Button color */
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .role-button:hover {
-            background-color: #0088cc; /* Hover effect for buttons */
-        }
-
-        .right-panel form {
-            width: 100%;
-        }
-
-        .right-panel input[type="email"],
-        .right-panel input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-sizing: border-box; /* Ensure width includes padding and border */
-            border: 1px solid #adadad;
-            background-color: #ffffff; /* White background for form fields */
-            color: #000000; /* Black text color */
-        }
-
-        .right-panel button {
-            border: none;
-            background-color: #00aaff; /* Button color */
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 10px; /* Added padding for button */
-            margin: 10px 0;
-        }
-
-        .right-panel h1, .right-panel h2, .right-panel a {
-            color: #000000; /* Black text for headings and links */
-        }
-
-        .right-panel a {
-            color: #00aaff; /* Link color */
-            text-decoration: none;
-        }
-
-        /* Style for the back button */
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            background-color: #00aaff;
-            color: rgb(0, 0, 0);
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            z-index: 1;
-        }
-
-        .back-button i {
-            margin-right: 8px;
-        }
-
-        .back-button:hover {
-            background-color: #0088cc; /* Hover effect for back button */
-        }
-
-        /* Adjust the z-index to ensure it's above other content */
-        .right-panel,
-        .left-panel {
-            position: relative;
-        }
-
-        .alert {
-            background-color: #f8d7da; /* Background color for alerts */
-            color: #721c24; /* Text color for alerts */
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #role-selection {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        label {
-            font-weight: bold; /* Make labels bold for clarity */
-            margin-top: 10px; /* Add margin for spacing */
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="User/css/style2.css"> <!-- Link to the CSS file -->
 </head>
 <body>
     <!-- Back Button -->
     <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
 
-    <div class="container">
-        <div class="left-panel"></div>
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-md-7 left-panel" style="background: url('{{ asset('User/img/DSC_5537-1320x600.jpg') }}') no-repeat center center; background-size: cover;"></div>
 
-        <div class="right-panel">
-            <h1><i class="fas fa-dove"></i> Welcome</h1>
-            <h2>Register</h2>
+            <div class="col-md-5 right-panel d-flex flex-column justify-content-center align-items-center bg-light">
+                <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Logo" class="logo img-fluid mb-4" style="max-width: 80%;">
 
-            <!-- Step 1: Role Selection -->
-            <div id="role-selection">
-                <h3>Select Your Role</h3>
-                <button class="role-button" onclick="selectRole('mahasiswa')">Mahasiswa</button>
-                <button class="role-button" onclick="selectRole('dosen')">Dosen</button>
-                <button class="role-button" onclick="selectRole('masyarakat')">Masyarakat Umum</button>
-            </div>
+                <h2 class="mb-4">Register</h2>
 
-            <!-- Step 2: Registration Form -->
-            <div id="registration-form" style="display:none;">
-                <form action="{{ route('register') }}" method="POST">
-                    @csrf <!-- Token CSRF -->
-                    <!-- Role-specific inputs will be loaded dynamically -->
-                    <div id="dynamic-fields"></div>
+                <!-- Step 1: Role Selection -->
+                <div id="role-selection" class="mb-4">
+                    <h3>Select Your Role</h3>
+                    <button class="btn btn-primary mr-2" onclick="selectRole('mahasiswa')">Mahasiswa</button>
+                    <button class="btn btn-primary mr-2" onclick="selectRole('dosen')">Dosen</button>
+                    <button class="btn btn-primary" onclick="selectRole('masyarakat')">Masyarakat Umum</button>
+                </div>
 
-                    <input type="email" name="email" placeholder="Email address" required>
-                    <button type="submit">REGISTER</button>
-                </form>
+                <!-- Step 2: Registration Form -->
+                <div id="registration-form" style="display:none; width: 100%;">
+                    <form action="{{ route('register.masyarakat') }}" method="POST">
+                        @csrf <!-- Token CSRF -->
 
-                <!-- Display errors if there are any -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                        <!-- Display errors if there are any -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-3">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div id="dynamic-fields" class="mb-3"></div>
+
+                        <button type="submit" class="btn btn-success btn-block">REGISTER</button>
+                    </form>
+
+                    <!-- Display success message -->
+                    @if(session('success'))
+                        <div class="alert alert-success mt-3">{{ session('success') }}</div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -218,24 +78,58 @@
             // Add dynamic fields based on the selected role
             if (role === 'mahasiswa') {
                 dynamicFields.innerHTML += `
-                    <label for="nim">NIM</label>
-                    <input type="text" id="nim" name="nim" placeholder="Masukkan NIM" required>
-                    <label for="prodi">Prodi</label>
-                    <input type="text" id="prodi" name="prodi" placeholder="Masukkan Prodi" required>
-                    <label for="kelas">Kelas</label>
-                    <input type="text" id="kelas" name="kelas" placeholder="Masukkan Kelas" required>
+                    <div class="form-group">
+                        <label for="nim">NIM</label>
+                        <input type="text" class="form-control" id="nim" name="nim" placeholder="Masukkan NIM" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prodi">Prodi</label>
+                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Masukkan Prodi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="kelas">Kelas</label>
+                        <input type="text" class="form-control" id="kelas" name="kelas" placeholder="Masukkan Kelas" required>
+                    </div>
                 `;
             } else if (role === 'dosen') {
                 dynamicFields.innerHTML += `
-                    <label for="nidn">NIDN</label>
-                    <input type="text" id="nidn" name="nidn" placeholder="Masukkan NIDN" required>
-                    <label for="prodi">Prodi</label>
-                    <input type="text" id="prodi" name="prodi" placeholder="Masukkan Prodi" required>
+                    <div class="form-group">
+                        <label for="nidn">NIDN</label>
+                        <input type="text" class="form-control" id="nidn" name="nidn" placeholder="Masukkan NIDN" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prodi">Prodi</label>
+                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Masukkan Prodi" required>
+                    </div>
                 `;
             } else if (role === 'masyarakat') {
                 dynamicFields.innerHTML += `
-                    <label for="nik">NIK</label>
-                    <input type="text" id="nik" name="nik" placeholder="Masukkan NIK" required>
+                                        <div class="form-group">
+                            <input type="text" class="form-control" name="Nama" placeholder="Nama" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="notelpon" placeholder="No Telepon" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="nik" placeholder="NIK" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="jenisklamin">Jenis Kelamin</label>
+                        <select class="form-control" id="jenisklamin" name="jenisklamin" required>
+                            <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Konfirmasi Password" required>
+                        </div>
                 `;
             }
         }

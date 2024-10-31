@@ -1,26 +1,30 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark  bg-primary  shadow">
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="/index">UPA POLINDRA</a>
-
-    <!-- Sidebar Toggle-->
-    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary shadow">
+    <!-- Sidebar Toggle (Burger Button) -->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-2" id="sidebarToggle" href="#!">
         <i class="fas fa-bars"></i>
     </button>
+
+    <!-- Navbar Brand (Logo) -->
+    <a class="navbar-brand ps-2" href="/index">
+        <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Upa Polindra" style="width: auto; max-height: 40px;">
+    </a>
 
     <!-- Spacer to push notifications and profile to the end -->
     <div class="ms-auto"></div>
 
-    <!-- Notification Button -->
-    <ul class="navbar-nav p-2">
-        <li class="nav-item dropdown">
+    <!-- Notification and Profile Menu -->
+    <ul class="navbar-nav align-items-center p-2">
+
+        <!-- Notification Button -->
+        <li class="nav-item dropdown me-3">
             <a class="nav-link" id="notificationDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
-                <!-- Optional: Badge to show number of notifications -->
+                <!-- Badge to show number of notifications -->
                 <span class="badge bg-danger">3</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
                 <li><a class="dropdown-item" href="#!">No new notifications</a></li>
-                <!-- Add more notification items here -->
+                <!-- Additional notification items here -->
             </ul>
         </li>
 

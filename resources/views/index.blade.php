@@ -88,7 +88,7 @@
                             <p class="card-text text-muted">Kuasai keterampilan baru dengan pelatihan interaktif ini.</p>
                             <hr>
                             <p class="text-muted"><strong>Jadwal: </strong>25 Oktober 2024, 13:00 - 17:00 WIB</p>
-                            <a href="#" class="btn btn-primary w-100 mt-3">Join Pelatihan</a>
+                            <a href="/Deskripsi" class="btn btn-primary w-100 mt-3">Join Pelatihan</a>
                         </div>
                     </div>
                 </div>
