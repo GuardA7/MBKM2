@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lsp;
+use App\Models\PelatihanUser;
 use App\Models\KategoriPelatihan;
 use App\Models\Pelatihan;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+//use auth
 class PelatihanController extends Controller
 {
     public function index(Request $request)
@@ -130,7 +132,7 @@ class PelatihanController extends Controller
     {
         // Hapus pelatihan berdasarkan ID
         $pelatihan = Pelatihan::findOrFail($id);
-        
+
         try {
             // Hapus file gambar jika ada
             if ($pelatihan->gambar && file_exists(public_path('img/pelatihan/' . $pelatihan->gambar))) {
@@ -146,18 +148,103 @@ class PelatihanController extends Controller
 
     public function index_user(Request $request)
     {
-        // Ambil data pelatihan dari database dan paginasi per 8 item
-        $pelatihan = Pelatihan::paginate(8); // 8 pelatihan per halaman
+        $pelatihans = Pelatihan::with(['kategori:id,nama', 'lsp:id,nama'])->paginate(6);
 
-        // Kirim data ke view
-        return view('user.pelatihan.index', compact('pelatihan'));
+        // Pass the pelatihans data to the view
+        return view('user.content.pelatihan.index', compact('pelatihans'));
     }
 
-    public function deskripsi(Request $request){
-        return view('user.content.pelatihan.deskripsi');
+    public function deskripsi($id){
+        $pelatihan = Pelatihan::with(['kategori:nama', 'lsp:nama'])->findOrFail($id);
+
+        // Return the view with the pelatihan data
+        return view('user.content.pelatihan.deskripsi', compact('pelatihan'));
     }
 
-    public function daftarPelatihan(Request $request){
-        return view('user.content.pelatihan.daftarPelatihan');
+
+    //Daftar Pelatihan
+
+    public function showDaftarForm($id)
+    {
+        $pelatihan = Pelatihan::findOrFail($id);
+        return view('user.content.pelatihan.daftarPelatihan', compact('pelatihan'));
     }
+
+    public function submitDaftar(Request $request, $id)
+    {
+        $request->validate([
+            'no_telp' => 'required|string|max:15',
+            'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $pelatihan = Pelatihan::findOrFail($id);
+
+        // Handle file upload
+        $buktiPath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+
+        // Create the registration with a default 'menunggu' status
+        PelatihanUser::create([
+            'user_id' => auth()->id(),
+            'pelatihan_id' => $id,
+            'bukti_pembayaran' => $buktiPath,
+            'status_pendaftaran' => 'menunggu',
+        ]);
+
+        return redirect()->route('user.pelatihan.index')->with('success', 'Pendaftaran berhasil, menunggu konfirmasi admin.');
+    }
+
+    public function registrations($id)
+    {
+        // Retrieve the Pelatihan by ID
+        $pelatihan = Pelatihan::findOrFail($id);
+
+        // Fetch registered users for this Pelatihan via PelatihanUser
+        $registrations = PelatihanUser::with('user')
+            ->where('pelatihan_id', $id);
+
+        // Return the view
+        return view('admin.data.pelatihan.registrations', compact('pelatihan'));
+    }
+
+    /**
+     * Get data for the registrations DataTable
+     */
+    public function getRegistrationsData(Request $request, $id)
+    {
+        $registrations = PelatihanUser::with('user')
+            ->where('pelatihan_id', $id);
+
+        return DataTables::of($registrations)
+            ->addColumn('user_name', function ($registration) {
+                return $registration->user->nama;
+            })
+            ->addColumn('user_email', function ($registration) {
+                return $registration->user->email;
+            })
+            ->addColumn('status_pendaftaran', function ($registration) {
+                return $registration->status_pendaftaran;
+            })
+            ->addColumn('bukti_pembayaran', function ($registration) {
+                return $registration->bukti_pembayaran
+    ? '<a href="' . asset(public_path('img/bukti_pembayaran/' . $registration->bukti_pembayaran)) . '" target="_blank">Lihat Bukti</a>'
+    : 'Tidak ada bukti';
+
+            })
+            ->rawColumns(['bukti_pembayaran'])
+            ->make(true);
+    }
+
+    public function updateStatus(Request $request)
+{
+    $registration = PelatihanUser::find($request->id);
+    if ($registration) {
+        $registration->status_pendaftaran = $request->status_pendaftaran;
+        $registration->save();
+        return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false], 404);
 }
+
+}
+

@@ -83,14 +83,14 @@
 
                 <!-- Settings Section -->
                 <div class="sb-sidenav-menu-heading">Setting</div>
-                <a class="nav-link" href="tables.html">
+                <div>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="dropdown-item text-danger">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </button>
                     </form>
-                </a>
+                </div>
             </div>
         </div>
         <div class="sb-sidenav-footer">

@@ -39,6 +39,8 @@ class Pelatihan extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('bukti_pembayaran', 'status_pendaftaran')->withTimestamps();
+        return $this->belongsToMany(User::class)
+        ->withPivot('bukti_pembayaran', 'status_pendaftaran')
+        ->withTimestamps();
     }
 }

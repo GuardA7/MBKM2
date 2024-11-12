@@ -8,9 +8,14 @@
                 Dashboard
             </a>
             <div class="sb-sidenav-menu-heading">Menu</div>
-            <a class="nav-link" href="/pelatihan">
+            <a class="nav-link" href="{{ route('user.pelatihan.index') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 List Pelatihan
+            </a>
+            <!-- Pelatihan Saya -->
+            <a class="nav-link" href="#">
+                <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                Pelatihan saya
             </a>
 
             <!-- Dropdown Sertifikat -->

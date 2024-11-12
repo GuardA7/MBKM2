@@ -150,7 +150,7 @@
                             searchable: false,
                             render: function(data, type, row) {
                                 return `
-                            <a class="btn btn-info btn-sm" href="{{ route('admin.pelatihan.detail', '') }}/${row.id}">
+                            <a class="btn btn-info btn-sm" href="{{ route('admin.pelatihan.registrations','') }}/${row.id}">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a class="btn btn-primary btn-sm" href="{{ route('admin.pelatihan.edit', '') }}/${row.id}">
@@ -160,7 +160,7 @@
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                                 <button type="button" class="btn btn-danger btn-sm delete-button" data-id="${row.id}">
-                                    <i class="fas fa-trash"></i> 
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </form>`;
                             }
