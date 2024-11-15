@@ -33,9 +33,7 @@ Route::get('/admin/dashboard', function () {
 })->middleware('auth', 'role:admin')->name('admin.dashboard');
 
 // Route untuk halaman index (untuk selain admin)
-Route::get('/index', function () {
-    return view('index');
-})->middleware('auth')->name('index');
+Route::get('/index', [AuthController::class, 'index'])->middleware('auth')->name('index');
 
 // Route untuk logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -62,7 +60,9 @@ Route::get('/pelatihan/{id}/daftar', [PelatihanController::class, 'showDaftarFor
 Route::post('/pelatihan/{id}/daftar', [PelatihanController::class, 'submitDaftar'])->name('user.pelatihan.daftar.submit');
 //Testing
 // User routes
-Route::get('pelatihan-saya', [PelatihanController::class, 'pelatihanSaya'])->name('user.pelatihan.pelatihanSaya');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pelatihan-saya', [PelatihanController::class, 'pelatihanSaya'])->name('pelatihan.saya');
+});
 
 // Admin routes for managing registrations
 Route::get('admin/pelatihan/registrations/{id}', [PelatihanController::class, 'registrations'])->name('admin.pelatihan.registrations');

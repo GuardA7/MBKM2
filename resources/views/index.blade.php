@@ -25,74 +25,8 @@
                 <input type="text" class="form-control me-2 shadow-sm" placeholder="Cari Kategori..." aria-label="Search">
                 <button class="btn btn-primary px-4 shadow-sm" type="submit">Cari</button>
             </form>
+            @include('user.content.pelatihan.list_pelatian')
 
-            <div class="row mb-3 mt-5">
-                <div class="col Title-Pelatihan">
-                    <h2>Daftar Pelatihan</h2>
-                </div>
-                <div class="col d-flex justify-content-end align-items-center">
-                    <a href="#" class="text-primary fw-bold text-decoration-none">Lihat Selengkapnya
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
 
-            <div class="row justify-content-center">
-                <!-- Card 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0 rounded-lg hover-shadow">
-                        <img src="https://th.bing.com/th?id=OIP.jk30kT5eZ77WiN3HHWhYFwAAAA&w=306&h=203&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-                            class="card-img-top rounded-top" alt="Course Title">
-                        <div class="card-body p-4 text-center">
-                            <h5 class="card-title mb-2 fw-bold">Judul Pelatihan 1</h5>
-                            <p class="text-muted"><strong>Harga: </strong>500.000 IDR</p>
-                            <hr>
-                            <p class="card-text text-muted">Pelajari lebih lanjut dan tingkatkan keterampilan Anda dengan pelatihan ini.</p>
-                            <hr>
-                            <p class="text-muted"><strong>Jadwal: </strong>15 Oktober 2024, 10:00 - 14:00 WIB</p>
-                            <a href="#" class="btn btn-primary w-100 mt-3">Join Pelatihan</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0 rounded-lg hover-shadow">
-                        <img src="https://th.bing.com/th?id=OIP.jk30kT5eZ77WiN3HHWhYFwAAAA&w=306&h=203&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-                            class="card-img-top rounded-top" alt="Course Title">
-                        <div class="card-body p-4 text-center">
-                            <h5 class="card-title mb-2 fw-bold">Judul Pelatihan 2</h5>
-                            <p class="text-muted"><strong>Harga: </strong>700.000 IDR</p>
-                            <hr>
-                            <p class="card-text text-muted">Tingkatkan keterampilan Anda dengan materi mendalam dari pelatihan ini.</p>
-                            <hr>
-                            <p class="text-muted"><strong>Jadwal: </strong>20 Oktober 2024, 09:00 - 13:00 WIB</p>
-                            <a href="#" class="btn btn-primary w-100 mt-3">Join Pelatihan</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-0 rounded-lg hover-shadow">
-                        <img src="https://th.bing.com/th?id=OIP.jk30kT5eZ77WiN3HHWhYFwAAAA&w=306&h=203&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-                            class="card-img-top rounded-top" alt="Course Title">
-                        <div class="card-body p-4 text-center">
-                            <h5 class="card-title mb-2 fw-bold">Judul Pelatihan 3</h5>
-                            <p class="text-muted"><strong>Harga: </strong>800.000 IDR</p>
-                            <hr>
-                            <p class="card-text text-muted">Kuasai keterampilan baru dengan pelatihan interaktif ini.</p>
-                            <hr>
-                            <p class="text-muted"><strong>Jadwal: </strong>25 Oktober 2024, 13:00 - 17:00 WIB</p>
-                            <a href="/Deskripsi" class="btn btn-primary w-100 mt-3">Join Pelatihan</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 @endsection

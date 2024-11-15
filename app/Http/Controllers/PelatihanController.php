@@ -148,11 +148,30 @@ class PelatihanController extends Controller
 
     public function index_user(Request $request)
     {
-        $pelatihans = Pelatihan::with(['kategori:id,nama', 'lsp:id,nama'])->paginate(6);
+        // Get search and category filters from the request
+        $search = $request->input('search');
+        $categoryId = $request->input('category');
 
-        // Pass the pelatihans data to the view
-        return view('user.content.pelatihan.index', compact('pelatihans'));
+        // Query to fetch categories for filter buttons
+        $kategoris = KategoriPelatihan::all();
+
+        // Build query for pelatihans based on search and category
+        $pelatihans = Pelatihan::with(['kategori:id,nama', 'lsp:id,nama']);
+
+        if ($search) {
+            $pelatihans->where('nama', 'like', '%' . $search . '%');
+        }
+
+        if ($categoryId) {
+            $pelatihans->where('kategori_id', $categoryId);
+        }
+
+        $pelatihans = $pelatihans->paginate(6);
+
+        // Pass the data to the view
+        return view('user.content.pelatihan.index', compact('pelatihans', 'kategoris', 'search', 'categoryId'));
     }
+
 
     public function deskripsi($id){
         $pelatihan = Pelatihan::with(['kategori:nama', 'lsp:nama'])->findOrFail($id);
@@ -245,6 +264,17 @@ class PelatihanController extends Controller
 
     return response()->json(['success' => false], 404);
 }
+public function pelatihanSaya(Request $request)
+    {
+        // Retrieve the logged-in user
+        $user = Auth::user();
+
+        // Get the list of trainings that the user has registered for
+        $pelatihans = $user->pelatihan()->with(['kategori', 'lsp'])->get();
+
+        // Return the view with registered trainings
+        return view('user.content.pelatihan.pelatihan_saya', compact('pelatihans'));
+    }
 
 }
 

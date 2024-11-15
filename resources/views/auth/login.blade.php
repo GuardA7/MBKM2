@@ -14,29 +14,31 @@
         <div class="left-panel" style="background: url('{{ asset('User/img/DSC_5537-1320x600.jpg') }}') no-repeat center center; background-size: cover;"></div>
 
         <div class="right-panel">
-            <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Logo" class="logo img-fluid mb-4" style="max-width: 80%;">
-            <h2>Log in</h2>
+            <div class="form-container">
+                <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Logo" class="logo img-fluid mb-4">
+                <h2>Log in</h2>
 
-            <form action="{{ route('login') }}" method="POST">
-                @csrf <!-- Tambahkan token CSRF -->
-                <input type="email" name="email" placeholder="Email address" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">LOGIN</button>
-            </form>
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <input type="email" name="email" placeholder="Email address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">LOGIN</button>
+                </form>
 
-            <!-- Tampilkan error jika ada -->
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                <!-- Error display -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-            <a href="#">Forgot password?</a>
-            <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p> <!-- Route ke register -->
+                <a href="#">Forgot password?</a>
+                <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
+            </div>
         </div>
     </div>
 </body>

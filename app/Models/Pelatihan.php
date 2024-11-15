@@ -29,7 +29,7 @@ class Pelatihan extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriPelatihan::class);
+        return $this->belongsTo(KategoriPelatihan::class, 'kategori_id');
     }
 
     public function lsp()

@@ -13,7 +13,7 @@
                 List Pelatihan
             </a>
             <!-- Pelatihan Saya -->
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('pelatihan.saya') }}">
                 <div class="sb-nav-link-icon"><i class="fa-solid fa-clipboard-list"></i></div>
                 Pelatihan saya
             </a>

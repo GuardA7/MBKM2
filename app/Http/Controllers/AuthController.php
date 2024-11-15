@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelatihan;
+use App\Models\KategoriPelatihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,5 +59,15 @@ public function showRegisterForm()
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function index()
+    {
+        // Retrieve all Pelatihan with their related categories and LSP data
+        $pelatihans = Pelatihan::with(['kategori', 'lsp'])->get();
+        $kategoris = KategoriPelatihan::with('pelatihan')->get();
+
+        // Pass data to the view
+        return view('index', compact('pelatihans', 'kategoris'));
     }
 }
