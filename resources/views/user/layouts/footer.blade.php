@@ -1,5 +1,5 @@
 <!-- resources/views/user/layouts/footer.blade.php -->
-<footer class="bg-secondary text-white py-4 mb-0">
+<footer class="bg-secondary text-white py-4 mb-0 z-2">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">

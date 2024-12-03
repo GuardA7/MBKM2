@@ -23,6 +23,7 @@ class User extends Authenticatable
         'jenis_kelamin',
         'prodi_id',
         'kelas_id',
+        'jurusan_id'
     ];
 
     protected $hidden = [
@@ -38,6 +39,11 @@ class User extends Authenticatable
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
     }
 
     // Method untuk mendapatkan role pengguna

@@ -7,22 +7,16 @@ body {
     min-height: 100vh;
 }
 
-.container {
-    display: flex;
-    width: 100%;
-    height: 100vh;
+.container-fluid {
+    height: 100%;
 }
 
 .left-panel {
-    width: 70%;
     background-size: cover;
+    height: 100%;
 }
 
 .right-panel {
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 40px;
     background-color: rgba(255, 255, 255, 0.9);
 }
@@ -33,12 +27,6 @@ body {
     text-align: center;
 }
 
-/* Default layout for large screens - no card */
-.right-panel .form-container {
-    background: none;
-}
-
-/* Styling for the logo */
 .logo {
     max-width: 80%;
     margin-bottom: 20px;
@@ -49,10 +37,6 @@ body {
     margin-bottom: 20px;
 }
 
-.right-panel form {
-    width: 100%;
-}
-
 .right-panel input[type="email"],
 .right-panel input[type="password"],
 .right-panel button {
@@ -61,13 +45,6 @@ body {
     margin: 10px 0;
     border-radius: 5px;
     box-sizing: border-box;
-}
-
-.right-panel input[type="email"],
-.right-panel input[type="password"] {
-    border: 1px solid #adadad;
-    background-color: #ffffff;
-    color: #000000;
 }
 
 .right-panel button {
@@ -83,7 +60,6 @@ body {
     text-decoration: none;
 }
 
-/* Back button style */
 .back-button {
     position: absolute;
     top: 20px;
@@ -106,9 +82,8 @@ body {
     background-color: #0088cc;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
-    .container {
+    .container-fluid {
         flex-direction: column;
         align-items: center;
     }
@@ -122,8 +97,7 @@ body {
         padding: 20px;
     }
 
-    /* Card-style appearance for small screens */
-    .right-panel .form-container {
+    .form-container {
         background: white;
         padding: 30px;
         border-radius: 10px;

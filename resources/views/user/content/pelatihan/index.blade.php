@@ -44,8 +44,9 @@
                     <img src="{{ asset('img/pelatihan/' . ($pelatihan->gambar ?? 'default.jpg')) }}" class="card-img-top" alt="{{ $pelatihan->nama }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $pelatihan->nama }}</h5>
-                        <p class="card-text">{{ Str::limit($pelatihan->deskripsi, 100) }}</p>
-                        <p class="card-text"><strong>Harga:</strong> Rp. {{ number_format($pelatihan->harga, 0, ',', '.') }}</p>
+                        <p class="card-text text-success fw-bold fs-5 mb-2"><strong>Harga:</strong> Rp. {{ number_format($pelatihan->harga, 0, ',', '.') }}</p>
+                        <p class="card-text ">{{ Str::limit($pelatihan->deskripsi, 100) }}</p>
+
                         <a href="{{ route('user.pelatihan.deskripsi', $pelatihan->id) }}" class="btn btn-primary">Lihat Detail</a>
                     </div>
                 </div>

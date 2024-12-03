@@ -10,22 +10,13 @@
         .table td.text-nowrap {
             white-space: nowrap;
             max-width: 150px;
-            /* Adjust max width as needed */
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* Add horizontal scrolling for the table */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        /* Specific styling for the Deskripsi column */
         .table td.deskripsi {
             max-width: 100px;
-            /* Set a smaller max width for the Deskripsi column */
             min-width: 80px;
-            /* Set a minimum width if necessary */
         }
     </style>
 
@@ -33,8 +24,8 @@
         <div class="container-fluid px-4">
             <h1 class="mt-4">Pelatihan</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active"><a href="/" class="text-decoration-none">Dashboard</a></li>
-                <li class="breadcrumb-item">Pelatihan</li>
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item active">Pelatihan</li>
             </ol>
 
             @if (session('tambah_success'))
@@ -44,8 +35,9 @@
                 </div>
             @endif
 
-            <a href="{{ route('admin.pelatihan.create') }}" class="btn btn-success btn-sm mb-2"><i class="fas fa-plus"></i>
-                Tambah Pelatihan</a>
+            <a href="{{ route('admin.pelatihan.create') }}" class="btn btn-success btn-sm mb-2">
+                <i class="fas fa-plus"></i> Tambah Pelatihan
+            </a>
 
             <div class="card mb-4">
                 <div class="card-header">
@@ -56,25 +48,24 @@
                         <table id="pelatihanTable" class="table table-bordered table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Gambar</th>
-                                    <th>Nama Pelatihan</th>
-                                    <th>Jenis Pelatihan</th>
-                                    <th class="text-nowrap">Deskripsi</th>
-                                    <th>Mulai Pendaftaran</th>
-                                    <th>Berakhir Pendaftaran</th>
-                                    <th>Harga</th>
-                                    <th>Kuota</th>
-                                    <th>Lsp</th>
-                                    <th>Kategori</th>
-                                    <th>Aksi</th>
+                                    <th class="text-start">ID</th>
+                                    <th class="text-start">Gambar</th>
+                                    <th class="text-start">Nama Pelatihan</th>
+                                    <th class="text-start">Jenis Pelatihan</th>
+                                    <th class="text-start text-nowrap">Deskripsi</th>
+                                    <th class="text-start">Mulai Pendaftaran</th>
+                                    <th class="text-start">Berakhir Pendaftaran</th>
+                                    <th class="text-start">Harga</th>
+                                    <th class="text-start">Kuota</th>
+                                    <th class="text-start">LSP</th>
+                                    <th class="text-start">Kategori</th>
+                                    <th class="text-start">Aksi</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
@@ -88,92 +79,82 @@
                     responsive: true,
                     columns: [{
                             data: 'id',
-                            name: 'id'
+                            name: 'id',
+                            className: 'text-start'
                         },
                         {
                             data: 'gambar',
                             name: 'gambar',
+                            className: 'text-start',
                             render: function(data) {
-                                if (data) {
-                                    return `<img src="{{ asset('img/pelatihan') }}/${data}" alt="profile" style="max-width: 50px; max-height: 50px;">`;
-                                } else {
-                                    return 'No Image';
-                                }
+                                return data ?
+                                    `<img src="{{ asset('img/pelatihan/') }}/${data}" alt="profile" style="max-width: 50px; max-height: 50px;">` :
+                                    'No Image';
                             },
                             orderable: false,
                             searchable: false
                         },
                         {
                             data: 'nama',
-                            name: 'nama'
+                            name: 'nama',
+                            className: 'text-start'
                         },
                         {
                             data: 'jenis_pelatihan',
-                            name: 'jenis_pelatihan'
+                            name: 'jenis_pelatihan',
+                            className: 'text-start'
                         },
                         {
                             data: 'deskripsi',
                             name: 'deskripsi',
-                            className: 'deskripsi',
+                            className: 'deskripsi text-start',
                             render: function(data) {
-                                // Show truncated version in the table
                                 return data.length > 30 ? data.substring(0, 30) + '...' : data;
                             }
                         },
                         {
                             data: 'tanggal_pendaftaran',
-                            name: 'tanggal_pendaftaran'
+                            name: 'tanggal_pendaftaran',
+                            className: 'text-start'
                         },
                         {
                             data: 'berakhir_pendaftaran',
-                            name: 'berakhir_pendaftaran'
+                            name: 'berakhir_pendaftaran',
+                            className: 'text-start'
                         },
                         {
                             data: 'harga',
-                            name: 'harga'
+                            name: 'harga',
+                            className: 'text-start'
                         },
                         {
                             data: 'kuota',
-                            name: 'kuota'
+                            name: 'kuota',
+                            className: 'text-start'
                         },
                         {
                             data: 'kategori.nama',
-                            name: 'kategori.nama'
+                            name: 'kategori.nama',
+                            className: 'text-start'
                         },
                         {
                             data: 'lsp.nama',
-                            name: 'lsp.nama'
+                            name: 'lsp.nama',
+                            className: 'text-start'
                         },
                         {
-                            data: null,
+                            data: 'action',
                             orderable: false,
                             searchable: false,
-                            render: function(data, type, row) {
-                                return `
-                            <a class="btn btn-info btn-sm" href="{{ route('admin.pelatihan.registrations','') }}/${row.id}">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a class="btn btn-primary btn-sm" href="{{ route('admin.pelatihan.edit', '') }}/${row.id}">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <form action="{{ route('admin.pelatihan.destroy', '') }}/${row.id}" method="POST" class="d-inline delete-form">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="button" class="btn btn-danger btn-sm delete-button" data-id="${row.id}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>`;
-                            }
-                        }
+                            className: 'text-start'
+                        },
                     ]
                 });
 
-                // Handle delete
                 $(document).on('click', '.delete-button', function(e) {
                     e.preventDefault();
-                    var form = $(this).closest('form');
-                    var url = form.attr('action');
                     var deleteId = $(this).data('id');
+                    var url = "{{ route('admin.pelatihan.destroy', '') }}/" + deleteId;
 
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
@@ -193,12 +174,8 @@
                                     _token: '{{ csrf_token() }}',
                                 },
                                 success: function(response) {
-                                    if (response.success) {
-                                        Swal.fire('Terhapus!', response.message, 'success');
-                                        table.ajax.reload(null, false);
-                                    } else {
-                                        Swal.fire('Error!', response.message, 'error');
-                                    }
+                                    Swal.fire('Terhapus!', response.message, 'success');
+                                    table.ajax.reload(null, false);
                                 },
                                 error: function(xhr) {
                                     Swal.fire('Error!', 'Gagal menghapus data.', 'error');

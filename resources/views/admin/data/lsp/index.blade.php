@@ -1,89 +1,98 @@
 @extends('admin.layouts.app')
 
-@section('title', 'LSP')
-
 @section('content')
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">LSP</h1>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active"><a href="/" class="text-decoration-none">Dashboard</a></li>
-                <li class="breadcrumb-item">LSP</li>
+                <li class="breadcrumb-item active">
+                    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item">Lsp</li>
             </ol>
 
             <!-- Alert Messages -->
             @if (session('tambah_success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Tambah Berhasil!</strong> LSP telah berhasil ditambahkan.
+                    <strong>Tambah Berhasil!</strong> Lsp telah berhasil ditambahkan.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
-            <a href="{{ route('admin.lsp.create') }}" class="btn btn-sm btn-success mb-2"><i class="fas fa-plus"></i> Tambah
-                LSP</a>
+            <a href="{{ route('admin.jurusan.create') }}" class="btn btn-success mb-2 btn-sm">
+                <i class="fas fa-plus"></i> Tambah Lsp
+            </a>
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i> Data Lsp
-                    </div>
-                    <div class="card-body">
-                        <table id="lspTable" class="table table-bordered table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama Lsp</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+            <!-- Tabel Lsp -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i> Data Lsp
                 </div>
-        </div>
+                <div class="card-body">
+                    <table id="lspTable" class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-start">ID</th>
+                                <th class="text-start">Nama Lsp</th>
+                                <th class="text-start">Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <!-- Spinner for Loading State -->
+                    <div id="spinner" style="display: none;">Loading...</div>
+                </div>
+            </div>
 
+        </div>
     </main>
+
     @push('script')
         <script>
             $(document).ready(function() {
-                // Menampilkan spinner saat AJAX loading
+
+                // csrf token 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                // Loading spinner for AJAX requests
                 $(document).ajaxStart(function() {
                     $('#spinner').show();
                 }).ajaxStop(function() {
                     $('#spinner').hide();
                 });
 
+                // DataTables AJAX setup
                 var table = $('#lspTable').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
                         url: "{{ route('admin.lsp.index') }}",
-                        type: 'GET',
+                        type: "GET",
                     },
                     columns: [{
                             data: 'id',
-                            name: 'id'
+                            name: 'id',
+                            className: 'text-start'
                         },
                         {
                             data: 'nama',
-                            name: 'nama'
+                            name: 'nama',
+                            className: 'text-start'
                         },
                         {
-                            data: null,
+                            data: 'action',
                             orderable: false,
                             searchable: false,
-                            render: function(data, type, row) {
-                                return `<a class="btn btn-primary btn-sm" href="{{ route('admin.lsp.edit', '') }}/${row.id}"><i class="fas fa-pen"></i></a>
-                                        <form action="{{ route('admin.lsp.destroy', '') }}/${row.id}" method="POST" class="d-inline delete-form">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-                                        <button type="button" class="btn btn-danger btn-sm delete-button" data-id="${row.id}"><i class="fas fa-trash"></i></button>
-                                        </form>`;
-                            }
-                        }
+                            className: 'text-start'
+                        },
                     ]
                 });
 
-                // Handle Delete button click
-                $(document).on('click', '.delete-button', function(e) {
+                // Alert delete using SweetAlert
+                $(document).on('click', '.button-delete', function(e) {
                     e.preventDefault();
                     var form = $(this).closest('form');
                     var url = form.attr('action');
@@ -91,7 +100,7 @@
 
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
-                        text: "Hapus LSP ini? ID=" + deleteId,
+                        text: "Hapus Lsp ini? ID=" + deleteId,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -110,8 +119,7 @@
                                     if (response.success) {
                                         Swal.fire('Terhapus!', response.message, 'success');
                                         table.ajax.reload(null,
-                                            false
-                                        ); // Reload DataTable tanpa mengatur ulang paging
+                                        false); // Reload DataTable without resetting pagination
                                     } else {
                                         Swal.fire('Error!', response.message, 'error');
                                     }
@@ -123,7 +131,6 @@
                         }
                     });
                 });
-
             });
         </script>
     @endpush

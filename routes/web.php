@@ -12,6 +12,14 @@ use App\Http\Controllers\DosenAdminController;
 use App\Http\Controllers\MahasiswaAdminController;
 use App\Http\Controllers\KategoriPelatihanController;
 use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\SertifikatAdminController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GrafikController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SyncController;
+
+
+
 
 
 route::get('/', function () {
@@ -20,23 +28,30 @@ route::get('/', function () {
 // Route untuk menampilkan halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // route unutk register
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register/masyarakat', [MasyarakatController::class, 'register'])->name('register.masyarakat');
-
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+Route::post('/register/mahasiswa', [RegisterController::class, 'registerMahasiswa'])->name('register.mahasiswa');
+Route::post('/register/dosen', [RegisterController::class, 'registerDosen'])->name('register.dosen');
 
 // Route untuk menangani proses login
 Route::post('/login', [AuthController::class, 'login']);
 
-// Route untuk dashboard admin (hanya diakses oleh admin)
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware('auth', 'role:admin')->name('admin.dashboard');
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+//Register
+
+
+//singkronisasi
+Route::get('/sync-data', [SyncController::class, 'syncData'])->name('sync.data');
 
 // Route untuk halaman index (untuk selain admin)
 Route::get('/index', [AuthController::class, 'index'])->middleware('auth')->name('index');
 
 // Route untuk logout
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //route sertifikat
 Route::middleware(['auth'])->group(function () {
@@ -58,48 +73,23 @@ Route::get('/user/pelatihan', [PelatihanController::class, 'index_user'])->name(
 Route::get('/user/pelatihan/deskripsi/{id}', [PelatihanController::class, 'deskripsi'])->name('user.pelatihan.deskripsi');
 Route::get('/pelatihan/{id}/daftar', [PelatihanController::class, 'showDaftarForm'])->name('user.pelatihan.daftar');
 Route::post('/pelatihan/{id}/daftar', [PelatihanController::class, 'submitDaftar'])->name('user.pelatihan.daftar.submit');
+Route::get('/user/pelatihan/{id}/detail', [PelatihanController::class, 'detail_pelatihan'])->name('user.pelatihan.detail');
+
 //Testing
 // User routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/pelatihan-saya', [PelatihanController::class, 'pelatihanSaya'])->name('pelatihan.saya');
 });
 
-// Admin routes for managing registrations
-Route::get('admin/pelatihan/registrations/{id}', [PelatihanController::class, 'registrations'])->name('admin.pelatihan.registrations');
-Route::get('admin/pelatihan/{id}/get-registrations', [PelatihanController::class, 'getRegistrationsData'])->name('admin.pelatihan.getRegistrationsData');
-Route::post('admin/pelatihan/update-status', [PelatihanController::class, 'updateStatus'])->name('admin.pelatihan.updateStatus');
+// Admin
 
-//Route Admin
-//User
-//  Dosen
+// Route untuk dashboard admin (hanya diakses oleh admin)
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('dosen', [DosenAdminController::class, 'index'])->name('admin.dosen.index');
-    Route::get('dosen/create', [DosenAdminController::class, 'create'])->name('admin.dosen.create');
-    Route::post('dosen/store', [DosenAdminController::class, 'store'])->name('admin.dosen.store');
-    Route::get('dosen/edit/{id}', [DosenAdminController::class, 'edit'])->name('admin.dosen.edit');
-    Route::put('dosen/{id}', [DosenAdminController::class, 'update'])->name('admin.dosen.update');
-    Route::delete('dosen/{id}', [DosenAdminController::class, 'destroy'])->name('admin.dosen.destroy');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
+;
 
-//  Mahasiswa
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('mahasiswa', action: [MahasiswaAdminController::class, 'index'])->name('admin.mahasiswa.index');
-    Route::get('mahasiswa/create', [MahasiswaAdminController::class, 'create'])->name('admin.mahasiswa.create');
-    Route::post('mahasiswa/store', [MahasiswaAdminController::class, 'store'])->name('admin.mahasiswa.store');
-    Route::get('mahasiswa/edit/{id}', [MahasiswaAdminController::class, 'edit'])->name('admin.mahasiswa.edit');
-    Route::put('mahasiswa/{id}', [MahasiswaAdminController::class, 'update'])->name('admin.mahasiswa.update');
-    Route::delete('mahasiswa/{id}', [MahasiswaAdminController::class, 'destroy'])->name('admin.mahasiswa.destroy');
-});
-
-//  Mahasiswa
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('umum', action: [UmumAdminController::class, 'index'])->name('admin.umum.index');
-    Route::get('umum/create', [UmumAdminController::class, 'create'])->name('admin.umum.create');
-    Route::post('umum/store', [UmumAdminController::class, 'store'])->name('admin.umum.store');
-    Route::get('umum/edit/{id}', [UmumAdminController::class, 'edit'])->name('admin.umum.edit');
-    Route::put('umum/{id}', [UmumAdminController::class, 'update'])->name('admin.umum.update');
-    Route::delete('umum/{id}', [UmumAdminController::class, 'destroy'])->name('admin.umum.destroy');
-});
+// Akademik
 
 //Jurusan
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
@@ -121,7 +111,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('prodi/{id}', [ProdiController::class, 'destroy'])->name('admin.prodi.destroy');
 });
 
-//Kelas
+//Prodi
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('kelas', [KelasController::class, 'index'])->name('admin.kelas.index');
     Route::get('kelas/create', [KelasController::class, 'create'])->name('admin.kelas.create');
@@ -131,8 +121,15 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('kelas/{id}', [KelasController::class, 'destroy'])->name('admin.kelas.destroy');
 });
 
+
 //Data
-// Route untuk lsp
+
+//Grafik
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('grafik', [GrafikController::class, 'index'])->name('admin.grafik.index');
+});
+
+//Lsp
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('lsp', [LspController::class, 'index'])->name('admin.lsp.index');
     Route::get('lsp/create', [LspController::class, 'create'])->name('admin.lsp.create');
@@ -142,7 +139,8 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('lsp/{id}', [LspController::class, 'destroy'])->name('admin.lsp.destroy');
 });
 
-// Route untuk kategori
+//Pelatihan
+//kategori pelatihan
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('kategori', [KategoriPelatihanController::class, 'index'])->name('admin.kategori.index');
     Route::get('kategori/create', [KategoriPelatihanController::class, 'create'])->name('admin.kategori.create');
@@ -152,13 +150,26 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('kategori/{id}', [KategoriPelatihanController::class, 'destroy'])->name('admin.kategori.destroy');
 });
 
-// Route untuk pelatihan (hanya untuk admin)
+//Pelatihan
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('pelatihan', [PelatihanController::class, 'index'])->name('admin.pelatihan.index');
+    Route::get('pelatihan/detail/{id}', [PelatihanController::class, 'detail'])->name('admin.pelatihan.detail');
     Route::get('pelatihan/create', [PelatihanController::class, 'create'])->name('admin.pelatihan.create');
     Route::post('pelatihan/store', [PelatihanController::class, 'store'])->name('admin.pelatihan.store');
     Route::get('pelatihan/edit/{id}', [PelatihanController::class, 'edit'])->name('admin.pelatihan.edit');
     Route::put('pelatihan/{id}', [PelatihanController::class, 'update'])->name('admin.pelatihan.update');
     Route::delete('pelatihan/{id}', [PelatihanController::class, 'destroy'])->name('admin.pelatihan.destroy');
-    Route::get('detail/{id}', [PelatihanController::class, 'destroy'])->name('admin.pelatihan.detail');
+    Route::get('pelatihan/{pelatihanId}/participants', [PelatihanController::class, 'getParticipants'])->name('admin.pelatihan.participants');
+    Route::post('pelatihan/update-status', [PelatihanController::class, 'updateStatus'])->name('admin.pelatihan.updateStatus');
+});
+
+//Sertifikat
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('sertifikat', [SertifikatAdminController::class, 'index'])->name('admin.sertifikat.index');
+    Route::get('sertifikat/detail/{userId}', [SertifikatAdminController::class, 'detail'])->name('admin.sertifikat.detail');
+    Route::get('sertifikat/create/{userId}', [SertifikatAdminController::class, 'create'])->name('admin.sertifikat.create');
+    Route::post('sertifikat/store/{userId}', [SertifikatAdminController::class, 'store'])->name('admin.sertifikat.store');
+    Route::get('sertifikat/{userId}/edit/{id}', [SertifikatAdminController::class, 'edit'])->name('admin.sertifikat.edit');
+    Route::put('sertifikat/{userId}/update/{id}', [SertifikatAdminController::class, 'update'])->name('admin.sertifikat.update');
+    Route::delete('sertifikat/{id}', [SertifikatAdminController::class, 'destroy'])->name('admin.sertifikat.destroy');
 });

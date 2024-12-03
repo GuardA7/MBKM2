@@ -25,7 +25,7 @@
                                 </p>
                             </div>
                             {{-- Button positioned at the bottom-right corner --}}
-                            <a href="#"
+                            <a href="{{ route('user.pelatihan.detail', $pelatihan->id) }}"
                                class="btn btn-primary position-absolute"
                                style="bottom: 15px; right: 15px;">
                                Detail

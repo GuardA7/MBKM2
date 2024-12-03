@@ -12,7 +12,7 @@ class Jurusan extends Model
     protected $table = 'jurusans';
 
     protected $fillable = [
-        'nama_jurusan',
+        'id','nama_jurusan',
     ];
 
     public function prodis()

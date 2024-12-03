@@ -38,7 +38,7 @@
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="get">
                         @csrf
                         <button type="submit" class="dropdown-item text-danger">
                             <i class="fas fa-sign-out-alt"></i> Logout
