@@ -11,25 +11,26 @@ class Pelatihan extends Model
     use HasFactory;
 
     protected $table = 'pelatihan';
-
-    // Menentukan atribut yang dapat diisi secara massal
+    
     protected $fillable = [
         'nama',
         'jenis_pelatihan',
         'deskripsi',
         'tanggal_pendaftaran',
         'berakhir_pendaftaran',
+        'jadwal_pelatihan_mulai',
+        'jadwal_pelatihan_selesai',
         'harga',
         'kuota',
         'pembimbing',
-        'lsp_id', // ID LSP
-        'kategori_id', // ID Kategori
+        'lsp_id',
+        'kategori_id',
         'gambar',
     ];
 
     public function kategori()
     {
-        return $this->belongsTo(KategoriPelatihan::class, 'kategori_id');
+        return $this->belongsTo(KategoriPelatihan::class);
     }
 
     public function lsp()
@@ -39,8 +40,14 @@ class Pelatihan extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)
-        ->withPivot('bukti_pembayaran', 'status_pendaftaran')
-        ->withTimestamps();
+        return $this->belongsToMany(User::class);
+    }
+    public function pelatihanuser()
+    {
+        return $this->belongsToMany(PelatihanUser::class);
+    }
+    public function participants()
+    {
+        return $this->hasMany(PelatihanUser::class, 'pelatihan_id');
     }
 }

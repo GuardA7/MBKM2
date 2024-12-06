@@ -60,6 +60,10 @@
                                 {{ \Carbon\Carbon::parse($pelatihan->tanggal_pendaftaran)->format('d/m/Y') }} -
                                 {{ \Carbon\Carbon::parse($pelatihan->berakhir_pendaftaran)->format('d/m/Y') }}</p>
 
+                            <p><i class="fas fa-calendar-alt me-2"></i><strong>Periode Pelatihan:</strong>
+                                {{ \Carbon\Carbon::parse($pelatihan->jadwal_pelatihan_mulai)->format('d/m/Y') }} -
+                                {{ \Carbon\Carbon::parse($pelatihan->jadwal_pelatihan_selesai)->format('d/m/Y') }}</p>
+
                             <button id="loadParticipants" class="btn btn-primary btn-lg mt-3 shadow-sm btn-sm">Lihat
                                 Peserta</button>
                         </div>
@@ -85,6 +89,7 @@
                                     <th>Email</th>
                                     <th>Pelatihan</th>
                                     <th>Status Pendaftaran</th>
+                                    <th>Status kelulusan</th>
                                     <th>Bukti Pembayaran</th>
                                     <th>Tanggal Pendaftaran</th>
                                 </tr>
@@ -190,6 +195,21 @@
                                     }
                                 },
                                 {
+                                    data: 'status_kelulusan',
+                                    name: 'status_kelulusan',
+                                    orderable: false,
+                                    searchable: false,
+                                    render: function(data, type, row) {
+                                        return `
+                                            <select class="form-control status-dropdown" data-id="${row.id}">
+                                                <option value="menunggu" ${data === 'menunggu' ? 'selected' : ''}>Menunggu</option>
+                                                <option value="lulus" ${data === 'lulus' ? 'selected' : ''}>Lulus</option>
+                                                <option value="tidak_lulus" ${data === 'tidak_lulus' ? 'selected' : ''}>Tidak Lulus</option>
+                                            </select>
+                                        `;
+                                    }
+                                },
+                                {
                                     data: 'bukti_pembayaran',
                                     name: 'bukti_pembayaran',
                                     orderable: false,
@@ -208,13 +228,18 @@
 
                 $('#user').on('change', '.status-dropdown', function() {
                     var registrationId = $(this).data('id');
+                    var dropdownType = $(this).closest('td')
+                .index(); // Cari tipe dropdown berdasarkan posisi kolom
                     var newStatus = $(this).val();
                     var dropdown = $(this);
+                    var statusType = dropdownType === 3 ? 'status_pendaftaran' :
+                    'status_kelulusan'; // Tentukan tipe status
+                    var statusText = statusType === 'status_pendaftaran' ? 'pendaftaran' : 'kelulusan';
 
                     // Tampilkan SweetAlert konfirmasi
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
-                        text: "Anda ingin mengubah status pendaftaran ini.",
+                        text: `Anda ingin mengubah status ${statusText} ini.`,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -230,40 +255,37 @@
                                 data: {
                                     _token: '{{ csrf_token() }}',
                                     id: registrationId,
-                                    status_pendaftaran: newStatus
+                                    [statusType]: newStatus // Gunakan tipe status yang relevan
                                 },
                                 success: function(response) {
                                     Swal.fire(
                                         'Berhasil!',
-                                        'Status pendaftaran berhasil diperbarui.',
+                                        `Status ${statusText} berhasil diperbarui.`,
                                         'success'
                                     );
                                     table.ajax.reload(null,
-                                        false
-                                    ); // Refresh the table without reloading the page
+                                    false); // Refresh tabel tanpa reload halaman
                                 },
                                 error: function(xhr, status, error) {
                                     console.error(xhr
-                                        .responseText
-                                    ); // Log the error response for debugging
+                                    .responseText); // Log error untuk debugging
                                     Swal.fire(
                                         'Gagal!',
-                                        'Gagal memperbarui status.',
+                                        `Gagal memperbarui status ${statusText}.`,
                                         'error'
                                     );
                                     table.ajax.reload(null,
-                                        false
-                                    ); // Refresh the table even if the update fails
+                                    false); // Tetap refresh tabel meskipun gagal
                                 }
                             });
-
                         } else {
                             // Jika batal, kembalikan dropdown ke nilai semula
                             table.ajax.reload(null,
-                                false); // Reload table untuk mengembalikan nilai asli
+                            false); // Reload tabel untuk mengembalikan nilai asli
                         }
                     });
                 });
+
             });
         </script>
     @endpush

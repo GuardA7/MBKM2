@@ -12,7 +12,7 @@
                 </a>
 
                 <!-- Akun User Section -->
-                <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" href="charts.html">
+                <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" href="{{ route('users.index') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     User
                 </a>

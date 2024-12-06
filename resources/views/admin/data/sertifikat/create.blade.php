@@ -21,7 +21,8 @@
                             <h5><i class="fas fa-plus-circle"></i> Tambah Sertifikat</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.sertifikat.store', $user->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.sertifikat.store', $user->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
 
                                 <!-- User id -->
@@ -35,12 +36,34 @@
                                         value="{{ ucfirst($user->role) }}" readonly>
                                 </div>
 
+                                <!-- File Sertifikat -->
+                                <div class="mb-3">
+                                    <label for="sertifikat_file" class="form-label">File Sertifikat</label>
+                                    <input type="file"
+                                        class="form-control @error('sertifikat_file') is-invalid @enderror"
+                                        name="sertifikat_file" id="sertifikat_file">
+                                    @error('sertifikat_file')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Nomor Sertifikat Pelatihan -->
+                                <div class="mb-3">
+                                    <label for="no_sertifikat" class="form-label">Nomor Sertifikat Pelatihan</label>
+                                    <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror"
+                                        name="no_sertifikat" id="no_sertifikat" value="{{ old('no_sertifikat') }}"
+                                        placeholder="Masukkan Nama Pelatihan">
+                                    @error('no_sertifikat')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
                                 <!-- Nama Pelatihan -->
                                 <div class="mb-3">
                                     <label for="nama_pelatihan" class="form-label">Nama Pelatihan</label>
                                     <input type="text" class="form-control @error('nama_pelatihan') is-invalid @enderror"
-                                        name="nama_pelatihan" id="nama_pelatihan" value="{{ old('nama_pelatihan') }}" placeholder="Masukkan Nama Pelatihan"
-                                        required>
+                                        name="nama_pelatihan" id="nama_pelatihan" value="{{ old('nama_pelatihan') }}"
+                                        placeholder="Masukkan Nama Pelatihan">
                                     @error('nama_pelatihan')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -62,25 +85,17 @@
                                     <label for="tanggal_berakhir" class="form-label">Tanggal Berakhir</label>
                                     <input type="date"
                                         class="form-control @error('tanggal_berakhir') is-invalid @enderror"
-                                        name="tanggal_berakhir" id="tanggal_berakhir" value="{{ old('tanggal_berakhir') }}">
+                                        name="tanggal_berakhir" id="tanggal_berakhir"
+                                        value="{{ old('tanggal_berakhir') }}">
                                     @error('tanggal_berakhir')
                                         <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- File Sertifikat -->
-                                <div class="mb-3">
-                                    <label for="sertifikat_file" class="form-label">File Sertifikat</label>
-                                    <input type="file" class="form-control" name="sertifikat_file" id="sertifikat_file">
-                                    @error('sertifikat_file')
-                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 <div class="d-flex justify-content-start">
                                     <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-save"></i>
                                         Tambah</button>
-                                    <a href="{{ route('admin.prodi.index') }}" class="btn btn-sm btn-secondary ms-2"><i
+                                    <a href="{{ route('admin.sertifikat.index') }}" class="btn btn-sm btn-secondary ms-2"><i
                                             class="fas fa-arrow-left"></i> Kembali</a>
                                 </div>
                             </form>

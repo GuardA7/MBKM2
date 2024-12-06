@@ -34,7 +34,6 @@
                             <tr>
                                 <th class="text-start">ID Prodi</th>
                                 <th class="text-start">Nama Prodi</th>
-                                <th class="text-start">ID Jurusan</th>
                                 <th class="text-start">Nama Jurusan</th>
                                 <th class="text-start">Aksi</th>
                             </tr>
@@ -82,13 +81,6 @@
                         {
                             data: 'nama_prodi',
                             name: 'nama_prodi',
-                            className: 'text-start'
-
-                        },
-                        {
-                            data: 'jurusan.id',
-                            name: 'jurusan.id',
-                            defaultContent: 'Tidak Ada',
                             className: 'text-start'
 
                         },

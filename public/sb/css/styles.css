@@ -11324,13 +11324,6 @@ body {
     font-size: 0.9rem;
     color: #6c757d;
 }
-
-
-.btn-primary:hover {
-    background-color: #ff4a3d;
-    transform: scale(1.05);
-}
-
 .container {
     max-width: 1200px;
 }

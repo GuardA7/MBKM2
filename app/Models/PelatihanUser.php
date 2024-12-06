@@ -8,22 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class PelatihanUser extends Model
 {
     use HasFactory;
+
     protected $table = 'pelatihan_user';
-    // Define the fillable fields
+
     protected $fillable = [
         'user_id',
         'pelatihan_id',
         'bukti_pembayaran',
         'status_pendaftaran',
+        'status_kelulusan,'
     ];
 
-    // Define the relationship to the User model
+    /**
+     * Relasi ke model User
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Define the relationship to the Pelatihan model
+    /**
+     * Relasi ke model Pelatihan
+     */
     public function pelatihan()
     {
         return $this->belongsTo(Pelatihan::class);

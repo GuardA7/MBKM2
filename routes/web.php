@@ -2,21 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LspController;
+use App\Http\Controllers\SyncController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProdiController;
+use App\Http\Controllers\GrafikController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelatihanController;
-use App\Http\Controllers\UmumAdminController;
-use App\Http\Controllers\DosenAdminController;
-use App\Http\Controllers\MahasiswaAdminController;
-use App\Http\Controllers\KategoriPelatihanController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\SertifikatAdminController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GrafikController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SyncController;
+use App\Http\Controllers\KategoriPelatihanController;
 
 
 
@@ -173,3 +171,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::put('sertifikat/{userId}/update/{id}', [SertifikatAdminController::class, 'update'])->name('admin.sertifikat.update');
     Route::delete('sertifikat/{id}', [SertifikatAdminController::class, 'destroy'])->name('admin.sertifikat.destroy');
 });
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/data', [UserController::class, 'getData'])->name('users.data');

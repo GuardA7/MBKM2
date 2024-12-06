@@ -35,7 +35,6 @@
                             <tr>
                                 <th class="text-start">ID Kelas</th>
                                 <th class="text-start">Nama Kelas</th>
-                                <th class="text-start">ID Prodi</th>
                                 <th class="text-start">Nama Prodi</th>
                                 <th class="text-start">Aksi</th>
                             </tr>
@@ -87,13 +86,6 @@
                         {
                             data: 'nama_kelas',
                             name: 'nama_kelas',
-                            className: 'text-start'
-
-                        },
-                        {
-                            data: 'prodi.id',
-                            name: 'prodi.id',
-                            defaultContent: 'Tidak Ada',
                             className: 'text-start'
 
                         },

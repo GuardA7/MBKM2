@@ -39,7 +39,7 @@ class DashboardController extends Controller
             'userUmumCount',
             'pelatihanCount',
             'sertifikatCount',
-            'pelatihanUserCount',
+            'pelatihanUserCount', 
             'pendingParticipants',
             'acceptedParticipants',
             'rejectedParticipants',

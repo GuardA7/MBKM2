@@ -29,18 +29,21 @@
                 <i class="fas fa-table me-1"></i> Data Sertifikat untuk User ID {{ $userId }}
             </div>
             <div class="card-body">
-                <table id="userCertificatesTable" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-start">Nama Pelatihan</th>
-                            <th class="text-center">Tanggal Berlaku</th>
-                            <th class="text-center">Tanggal Berakhir</th>
-                            <th class="text-center">File Sertifikat</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                </table>
+                <div class="table-responsive">
+                    <table id="userCertificatesTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-start">ID</th>
+                                <th class="text-start">Nomor Sertifikat</th>
+                                <th class="text-start">Nama Pelatihan</th>
+                                <th class="text-start">Tanggal Berlaku</th>
+                                <th class="text-start">Tanggal Berakhir</th>
+                                <th class="text-start">File Sertifikat</th>
+                                <th class="text-start">Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -61,6 +64,11 @@
                             className: 'text-center'
                         },
                         {
+                            data: 'no_sertifikat',
+                            name: 'no_sertifikat',
+                            className: 'text-start'
+                        },
+                        {
                             data: 'nama_pelatihan',
                             name: 'nama_pelatihan',
                             className: 'text-start'
@@ -68,12 +76,12 @@
                         {
                             data: 'tanggal_berlaku',
                             name: 'tanggal_berlaku',
-                            className: 'text-center'
+                            className: 'text-start'
                         },
                         {
                             data: 'tanggal_berakhir',
                             name: 'tanggal_berakhir',
-                            className: 'text-center'
+                            className: 'text-start'
                         },
                         {
                             data: 'sertifikat_file',
@@ -104,7 +112,7 @@
 
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
-                        text: "Hapus sertifikat dengan ID " + deleteId + "?",
+                        text: "Hapus sertifikat dengan ID = " + deleteId + "?",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',

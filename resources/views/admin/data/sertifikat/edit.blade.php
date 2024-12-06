@@ -42,13 +42,37 @@
                                     <input type="hidden" class="form-control" id="user_role"
                                         value="{{ ucfirst($user->role) }}" readonly>
                                 </div>
+                                
+                                <!-- File Sertifikat -->
+                                <div class="mb-3">
+                                    <label for="sertifikat_file" class="form-label">File Sertifikat (Optional)</label>
+                                    <input type="file" class="form-control @error('sertifikat_file') is-invalid @enderror" name="sertifikat_file" id="sertifikat_file">
+                                    @if ($sertifikat->sertifikat_file)
+                                        <p>File: <a href="{{ asset('' . $sertifikat->sertifikat_file) }}"
+                                                target="_blank">View File</a></p>
+                                    @endif
+                                    @error('sertifikat_file')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Nomor Sertifikat Pelatihan -->
+                                <div class="mb-3">
+                                    <label for="no_sertifikat" class="form-label">Nomor Sertifikat Pelatihan</label>
+                                    <input type="text" class="form-control @error('no_sertifikat') is-invalid @enderror"
+                                        name="no_sertifikat" id="no_sertifikat"
+                                        value="{{ old('no_sertifikat', $sertifikat->no_sertifikat) }}" placeholder="Masukkan Nomor Sertifikat Pelatihan">
+                                    @error('no_sertifikat')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
 
                                 <!-- Nama Pelatihan -->
                                 <div class="mb-3">
                                     <label for="nama_pelatihan" class="form-label">Nama Pelatihan</label>
                                     <input type="text" class="form-control @error('nama_pelatihan') is-invalid @enderror"
                                         name="nama_pelatihan" id="nama_pelatihan"
-                                        value="{{ old('nama_pelatihan', $sertifikat->nama_pelatihan) }}" required>
+                                        value="{{ old('nama_pelatihan', $sertifikat->nama_pelatihan) }}" placeholder="Masukkan Nama Pelatihan">
                                     @error('nama_pelatihan')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -60,7 +84,7 @@
                                     <input type="date"
                                         class="form-control @error('tanggal_berlaku') is-invalid @enderror"
                                         name="tanggal_berlaku" id="tanggal_berlaku"
-                                        value="{{ old('tanggal_berlaku', $sertifikat->tanggal_berlaku) }}">
+                                        value="{{ old('tanggal_berlaku', $sertifikat->tanggal_berlaku) }}" placeholder="Masukkan Tanggal Berlaku">
                                     @error('tanggal_berlaku')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -72,22 +96,9 @@
                                     <input type="date"
                                         class="form-control @error('tanggal_berakhir') is-invalid @enderror"
                                         name="tanggal_berakhir" id="tanggal_berakhir"
-                                        value="{{ old('tanggal_berakhir', $sertifikat->tanggal_berakhir) }}">
+                                        value="{{ old('tanggal_berakhir', $sertifikat->tanggal_berakhir) }}" placeholder="Masukkan Tanggal Berakhir">
                                     @error('tanggal_berakhir')
                                         <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- File Sertifikat -->
-                                <div class="mb-3">
-                                    <label for="sertifikat_file" class="form-label">File Sertifikat (Optional)</label>
-                                    <input type="file" class="form-control" name="sertifikat_file" id="sertifikat_file">
-                                    @if ($sertifikat->sertifikat_file)
-                                        <p>File: <a href="{{ asset('' . $sertifikat->sertifikat_file) }}"
-                                                target="_blank">View File</a></p>
-                                    @endif
-                                    @error('sertifikat_file')
-                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 

@@ -16,7 +16,7 @@
     <!-- Navbar profile -->
     <ul class="navbar-nav ms-auto me-3">
         <li class="nav-item">
-            <a class="nav-link d-flex align-items-center" href="{{ route('admin.profile.index') }}">
+            <a class="nav-link d-flex align-items-center" href="#">
                 <!-- Profile Icon -->
                 <span>{{ Auth::user()->nama }}</span>
                 <i class="fas fa-user-circle fa-lg"></i>

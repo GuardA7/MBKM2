@@ -40,9 +40,10 @@
                                 <div class="mb-3">
                                     <label for="gambar" class="form-label">Gambar Pelatihan</label>
                                     <div class="mb-3">
-                                        <img id="imagePreview" src="{{ asset('img/pelatihan/gambar/' . $pelatihan->gambar) }}"
+                                        <img id="imagePreview"
+                                            src="{{ asset('img/pelatihan/gambar/' . $pelatihan->gambar) }}"
                                             alt="Gambar Pelatihan" style="max-width: 200px; max-height: 200px;">
-                                            <!-- Display the name of the existing file if it exists -->
+                                        <!-- Display the name of the existing file if it exists -->
                                     </div>
                                     <span id="fileName" style="pointer-events: none;">
                                         {{ $pelatihan->gambar ? $pelatihan->gambar : 'Belum ada file yang dipilih' }}
@@ -106,13 +107,19 @@
                                     @enderror
                                 </div>
 
-                                <!-- edit jenis pelatihan -->
+                                <!-- jenis pelatihan -->
                                 <div class="mb-3">
                                     <label for="jenis_pelatihan" class="form-label">Jenis Pelatihan</label>
-                                    <input type="text"
-                                        class="form-control @error('jenis_pelatihan') is-invalid @enderror"
-                                        name="jenis_pelatihan" id="jenis_pelatihan" placeholder="Masukan Jenis Pelatihan"
-                                        value="{{ old('jenis_pelatihan', $pelatihan->jenis_pelatihan) }}">
+                                    <select class="form-select @error('jenis_pelatihan') is-invalid @enderror"
+                                        name="jenis_pelatihan" id="jenis_pelatihan">
+                                        <option value="" disabled selected>Pilih Jenis Pelatihan</option>
+                                        <option value="offline"
+                                            {{ (old('jenis_pelatihan') ?? $pelatihan->jenis_pelatihan) == 'offline' ? 'selected' : '' }}>
+                                            Offline</option>
+                                        <option value="online"
+                                            {{ (old('jenis_pelatihan') ?? $pelatihan->jenis_pelatihan) == 'online' ? 'selected' : '' }}>
+                                            Online</option>
+                                    </select>
                                     @error('jenis_pelatihan')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -170,6 +177,31 @@
                                         name="berakhir_pendaftaran" id="berakhir_pendaftaran"
                                         value="{{ old('berakhir_pendaftaran', $pelatihan->berakhir_pendaftaran) }}">
                                     @error('berakhir_pendaftaran')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- edit jadwal pelatihan -->
+                                <div class="mb-3">
+                                    <label for="jadwal_pelatihan_mulai" class="form-label">jadwal awal pelatihan</label>
+                                    <input type="date"
+                                        class="form-control @error('jadwal_pelatihan_mulai') is-invalid @enderror"
+                                        name="jadwal_pelatihan_mulai" id="jadwal_pelatihan_mulai"
+                                        value="{{ old('jadwal_pelatihan_mulai', $pelatihan->jadwal_pelatihan_mulai) }}">
+                                    @error('jadwal_pelatihan_mulai')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- edit selesai pelatihan -->
+                                <div class="mb-3">
+                                    <label for="jadwal_pelatihan_selesai" class="form-label">Jadwal Selesai
+                                        Pelatihan</label>
+                                    <input type="date"
+                                        class="form-control @error('jadwal_pelatihan_selesai') is-invalid @enderror"
+                                        name="jadwal_pelatihan_selesai" id="jadwal_pelatihan_selesai"
+                                        value="{{ old('jadwal_pelatihan_selesai', $pelatihan->jadwal_pelatihan_selesai) }}">
+                                    @error('jadwal_pelatihan_selesai')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
