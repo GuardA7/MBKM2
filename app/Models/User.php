@@ -23,7 +23,8 @@ class User extends Authenticatable
         'jenis_kelamin',
         'prodi_id',
         'kelas_id',
-        'jurusan_id'
+        'jurusan_id',
+        'status_registrasi'
     ];
 
     protected $hidden = [

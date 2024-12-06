@@ -43,7 +43,7 @@
             <div class="collapse" id="collapseGrafik" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="{{ route('grafik.grafik') }}">Grafik Sertifikat</a>
-                    <a class="nav-link" href="{{ route('grafik.mahasiswa') }}">Presentase Mahasiswa</a>
+                    <a class="nav-link" href="{{ route('grafik.presentase') }}">Presentase Mahasiswa</a>
                 </nav>
             </div>
 
