@@ -11,10 +11,22 @@
                     Dashboard
                 </a>
 
+                <div class="sb-sidenav-menu-heading">Akun User</div>
                 <!-- Akun User Section -->
-                <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                    User
+                <a class="nav-link {{ request()->is('admin/dosen*') ? 'active' : '' }}"
+                    href="{{ route('users.dosen.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Dosen
+                </a>
+                <a class="nav-link {{ request()->is('admin/mahasiswa*') ? 'active' : '' }}"
+                    href="{{ route('users.mahasiswa.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Mahasiswa
+                </a>
+                <a class="nav-link {{ request()->is('admin/umum*') ? 'active' : '' }}"
+                    href="{{ route('users.umum.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                    Umum
                 </a>
 
                 <!-- Akademik Section -->
