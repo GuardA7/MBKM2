@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Data Mahasiswa')
+@section('title', 'Halaman Lsit Akun Umum')
 
 @section('content')
 
@@ -25,7 +25,7 @@
                                     <th class="text-start">Nama</th>
                                     <th class="text-start">NIK</th>
                                     <th class="text-start">No. HP</th>
-                                    <th class="text-start">Status Registrasi</th>
+        
                                 </tr>
                             </thead>
                         </table>

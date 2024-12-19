@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Halaman List Lsp')
+
 @section('content')
     <main>
         <div class="container-fluid px-4">
@@ -19,7 +21,7 @@
                 </div>
             @endif
 
-            <a href="{{ route('admin.jurusan.create') }}" class="btn btn-success mb-2 btn-sm">
+            <a href="{{ route('admin.lsp.create') }}" class="btn btn-success mb-2 btn-sm">
                 <i class="fas fa-plus"></i> Tambah Lsp
             </a>
 

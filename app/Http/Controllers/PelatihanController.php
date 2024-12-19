@@ -42,7 +42,7 @@ class PelatihanController extends Controller
                 ->rawColumns(['action', 'gambar'])
                 ->make(true);
         }
-        return view('admin.data.pelatihan.listpelatihan.index');
+        return view('admin.data.pelatihan.listpelatihan.index',);
     }
 
     public function create()
@@ -93,7 +93,7 @@ class PelatihanController extends Controller
             'gambar.mimes'                              => 'Gambar harus berformat JPG atau PNG.',
             'gambar.max'                                => 'Ukuran gambar maksimal 2MB.',
             'gambar.required'                           => 'Gambar wajib diisi.',
-        ]);        
+        ]);
 
         $data = $request->except('gambar');
 
@@ -152,7 +152,7 @@ class PelatihanController extends Controller
             'gambar.mimes'                              => 'Gambar harus berformat JPG atau PNG.',
             'gambar.max'                                => 'Ukuran gambar maksimal 2MB.',
             'gambar.required'                           => 'Gambar wajib diisi.',
-        ]);        
+        ]);
 
         $data = $request->except('gambar');
 
@@ -171,23 +171,22 @@ class PelatihanController extends Controller
         return redirect()->route('admin.pelatihan.edit', $id)->with('edit_success', true);
     }
 
-    public function getParticipants($pelatihanId)
+    public function getParticipants($id)
     {
-        $participants = PelatihanUser::with(['user', 'pelatihan'])
-            ->where('pelatihan_id', $pelatihanId)
-            ->select(['id', 'user_id', 'pelatihan_id', 'status_pendaftaran', 'created_at']);
+        $participants = PelatihanUser::where('pelatihan_id', $id)
+            ->with(['user', 'pelatihan'])
+            ->get();
 
-        return DataTables::of($participants)
-            ->addColumn('nama_user', fn($row) => $row->user->nama ?? '-')
-            ->addColumn('email_user', fn($row) => $row->user->email ?? '-')
-            ->addColumn('nama_pelatihan', fn($row) => $row->pelatihan->nama ?? '-')
+        return datatables()->of($participants)
+            ->addColumn('nama_user', fn($row) => $row->user->nama)
+            ->addColumn('email_user', fn($row) => $row->user->email)
+            ->addColumn('nama_pelatihan', fn($row) => $row->pelatihan->nama)
             ->addColumn('status_pendaftaran', fn($row) => $row->status_pendaftaran)
-            ->addColumn('bukti_pembayaran', function ($row) {
-                return $row->bukti_pembayaran
-                    ? '<a href="' . asset('img/pelatihan/buktiPembayaran/' . $row->bukti_pembayaran) . '" target="_blank">Lihat Bukti</a>'
-                    : 'Tidak ada bukti';
-            })
-            ->editColumn('created_at', fn($row) => $row->created_at->format('d/m/Y'))
+            ->addColumn('status_kelulusan', fn($row) => $row->status_kelulusan)
+            ->addColumn('bukti_pembayaran', fn($row) => $row->bukti_pembayaran
+                ? '<a href="' . asset("uploads/" . $row->bukti_pembayaran) . '" target="_blank">Lihat</a>'
+                : '-')
+            ->addColumn('created_at', fn($row) => $row->created_at->format('d-m-Y'))
             ->rawColumns(['bukti_pembayaran'])
             ->make(true);
     }
@@ -210,23 +209,28 @@ class PelatihanController extends Controller
         }
     }
 
-    public function updateStatusLulus(Request $request)
+    public function updateStatusKelulusan(Request $request)
     {
         $request->validate([
-            'id'                 => 'required|exists:pelatihan_user,id',
-            'status_kelulusan'   => 'required|in:menunggu,diterima,ditolak',
+            'id'               => 'required|exists:pelatihan_user,id',
+            'status_kelulusan' => 'required|in:menunggu,lulus,tidak_lulus', // Sesuaikan opsi status kelulusan
         ]);
 
         try {
+            // Cari data pendaftaran berdasarkan ID
             $registration = PelatihanUser::findOrFail($request->id);
-            $registration->status_pendaftaran = $request->status_pendaftaran;
+
+            // Perbarui status kelulusan
+            $registration->status_kelulusan = $request->status_kelulusan;
             $registration->save();
 
-            return response()->json(['success' => true, 'message' => 'Status updated successfully.']);
+            return response()->json(['success' => true, 'message' => 'Status kelulusan berhasil diperbarui.']);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Failed to update status.'], 500);
+            // Tangani jika ada error
+            return response()->json(['success' => false, 'message' => 'Gagal memperbarui status kelulusan.'], 500);
         }
     }
+
 
     public function destroy($id)
     {

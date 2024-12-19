@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Detail Pelatihan')
+@section('title', 'Halaman Detail Pelatihan')
 
 @section('content')
     <main>
@@ -101,7 +101,6 @@
             <a href="{{ route('admin.pelatihan.index') }}" class="btn btn-secondary btn-sm">Kembali</a>
         </div>
     </main>
-
 @endsection
 
 @section('styles')
@@ -131,21 +130,14 @@
                 // Toggle deskripsi panjang/pendek
                 $('#toggleDesc').click(function(e) {
                     e.preventDefault();
-                    $('#desc-preview').hide();
-                    $('#desc-full').show();
+                    $('#desc-preview').addClass('d-none');
+                    $('#desc-full').removeClass('d-none');
                 });
 
                 $('#toggleLess').click(function(e) {
                     e.preventDefault();
-                    $('#desc-full').hide();
-                    $('#desc-preview').show();
-                });
-
-                // Spinner loading untuk Ajax
-                $(document).ajaxStart(function() {
-                    $('#spinner').show();
-                }).ajaxStop(function() {
-                    $('#spinner').hide();
+                    $('#desc-full').addClass('d-none');
+                    $('#desc-preview').removeClass('d-none');
                 });
 
                 let table;
@@ -155,9 +147,9 @@
                     const pelatihanId = {{ $pelatihan->id }};
 
                     if ($.fn.dataTable.isDataTable('#user')) {
-                        table.ajax.reload(null, false); // Reload jika tabel sudah ada
+                        table.ajax.reload(null, false);
                     } else {
-                        table = $('#user').DataTable({
+                        $('#user').DataTable({
                             processing: true,
                             serverSide: true,
                             ajax: {
@@ -166,26 +158,21 @@
                             },
                             columns: [{
                                     data: 'nama_user',
-                                    name: 'nama_user',
-                                    title: 'Nama User'
+                                    name: 'nama_user'
                                 },
                                 {
                                     data: 'email_user',
-                                    name: 'email_user',
-                                    title: 'Email'
+                                    name: 'email_user'
                                 },
                                 {
                                     data: 'nama_pelatihan',
-                                    name: 'nama_pelatihan',
-                                    title: 'Pelatihan'
+                                    name: 'nama_pelatihan'
                                 },
                                 {
                                     data: 'status_pendaftaran',
                                     name: 'status_pendaftaran',
-                                    orderable: false,
-                                    searchable: false,
                                     render: function(data, type, row) {
-                                        return `
+                                    return `
                                             <select class="form-control status-dropdown" data-id="${row.id}">
                                                 <option value="menunggu" ${data === 'menunggu' ? 'selected' : ''}>Menunggu</option>
                                                 <option value="diterima" ${data === 'diterima' ? 'selected' : ''}>Diterima</option>
@@ -197,10 +184,8 @@
                                 {
                                     data: 'status_kelulusan',
                                     name: 'status_kelulusan',
-                                    orderable: false,
-                                    searchable: false,
                                     render: function(data, type, row) {
-                                        return `
+                                    return `
                                             <select class="form-control status-dropdown" data-id="${row.id}">
                                                 <option value="menunggu" ${data === 'menunggu' ? 'selected' : ''}>Menunggu</option>
                                                 <option value="lulus" ${data === 'lulus' ? 'selected' : ''}>Lulus</option>
@@ -211,35 +196,43 @@
                                 },
                                 {
                                     data: 'bukti_pembayaran',
-                                    name: 'bukti_pembayaran',
-                                    orderable: false,
-                                    searchable: false
+                                    name: 'bukti_pembayaran'
                                 },
                                 {
                                     data: 'created_at',
-                                    name: 'created_at',
-                                    title: 'Tanggal Pendaftaran'
+                                    name: 'created_at'
                                 },
                             ]
                         });
+
                     }
                     $('#participantsCard').show();
                 });
 
                 $('#user').on('change', '.status-dropdown', function() {
                     var registrationId = $(this).data('id');
-                    var dropdownType = $(this).closest('td')
-                .index(); // Cari tipe dropdown berdasarkan posisi kolom
+                    var dropdownType = $(this).closest('td').index();
                     var newStatus = $(this).val();
                     var dropdown = $(this);
-                    var statusType = dropdownType === 3 ? 'status_pendaftaran' :
-                    'status_kelulusan'; // Tentukan tipe status
-                    var statusText = statusType === 'status_pendaftaran' ? 'pendaftaran' : 'kelulusan';
 
-                    // Tampilkan SweetAlert konfirmasi
+                    var statusType, statusText, routeUrl;
+
+                    if (dropdownType === 3) { // Kolom status_pendaftaran
+                        statusType = 'status_pendaftaran';
+                        statusText = 'pendaftaran';
+                        routeUrl = "{{ route('admin.pelatihan.updateStatus') }}";
+                    } else if (dropdownType === 4) { // Kolom status_kelulusan
+                        statusType = 'status_kelulusan';
+                        statusText = 'kelulusan';
+                        routeUrl = "{{ route('admin.pelatihan.updateStatusKelulusan') }}";
+                    } else {
+                        console.error('Dropdown type tidak dikenali.');
+                        return;
+                    }
+
                     Swal.fire({
                         title: 'Apakah Anda yakin?',
-                        text: `Anda ingin mengubah status ${statusText} ini.`,
+                        text: `Anda ingin mengubah status ${statusText} ini menjadi ${newStatus}.`,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -248,40 +241,34 @@
                         cancelButtonText: 'Batal'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Jika konfirmasi, kirim AJAX untuk memperbarui status
                             $.ajax({
-                                url: "{{ route('admin.pelatihan.updateStatus') }}",
+                                url: routeUrl,
                                 type: 'POST',
                                 data: {
                                     _token: '{{ csrf_token() }}',
                                     id: registrationId,
-                                    [statusType]: newStatus // Gunakan tipe status yang relevan
+                                    [statusType]: newStatus
                                 },
                                 success: function(response) {
                                     Swal.fire(
                                         'Berhasil!',
-                                        `Status ${statusText} berhasil diperbarui.`,
+                                        `Status ${statusText} berhasil diperbarui menjadi ${newStatus}.`,
                                         'success'
                                     );
-                                    table.ajax.reload(null,
-                                    false); // Refresh tabel tanpa reload halaman
+                                    table.ajax.reload(null, false);
                                 },
                                 error: function(xhr, status, error) {
-                                    console.error(xhr
-                                    .responseText); // Log error untuk debugging
+                                    console.error(xhr.responseText);
                                     Swal.fire(
                                         'Gagal!',
                                         `Gagal memperbarui status ${statusText}.`,
                                         'error'
                                     );
-                                    table.ajax.reload(null,
-                                    false); // Tetap refresh tabel meskipun gagal
+                                    table.ajax.reload(null, false);
                                 }
                             });
                         } else {
-                            // Jika batal, kembalikan dropdown ke nilai semula
-                            table.ajax.reload(null,
-                            false); // Reload tabel untuk mengembalikan nilai asli
+                            table.ajax.reload(null, false);
                         }
                     });
                 });

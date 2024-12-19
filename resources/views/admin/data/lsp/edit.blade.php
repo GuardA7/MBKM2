@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Halaman Edit Lsp')
+
 @section('content')
     <main>
         <div class="container-fluid px-4">
@@ -13,6 +15,15 @@
                 </li>
                 <li class="breadcrumb-item">Edit LSP</li>
             </ol>
+
+            
+            <!-- Alert Messages -->
+            @if (session('edit_success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Edit Berhasil!</strong> Lsp telah berhasil diedit.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             <!-- tabel start -->
             <div class="row justify-content-center">

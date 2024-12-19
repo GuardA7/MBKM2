@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LspController;
 use App\Http\Controllers\SyncController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AuthController;;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfilUserController;
+
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\ProdiController;
@@ -17,15 +19,22 @@ use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\SertifikatAdminController;
 use App\Http\Controllers\KategoriPelatihanController;
 
+//profile
+Route::prefix('user')->middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfilUserController::class, 'show'])->name('profile.user');
+    Route::post('/profile/update', [ProfilUserController::class, 'updateProfile'])->name('user.updateProfile');
+    Route::post('/profile/password', [ProfilUserController::class, 'updatePassword'])->name('user.updatePassword');
+});;
 
 Route::get('/chart', [ChartController::class, 'index'])->name('grafik.presentase');
-
 
 route::get('/', function () {
     return view('welcome');
 });
+
 // Route untuk menampilkan halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
 // route unutk register
 Route::get('/register', function () {
     return view('auth.register');
@@ -41,12 +50,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 });
 
 //Register
-
-
 //singkronisasi
 Route::get('/sync-data', [SyncController::class, 'syncData'])->name('sync.data');
 Route::get('/sync-data-User', [SyncController::class, 'syncDataUser'])->name('sync.data.User');
-
 
 // Route untuk halaman index (untuk selain admin)
 Route::get('/index', [AuthController::class, 'index'])->middleware('auth')->name('index');
@@ -62,7 +68,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/sertifikat/{id}', [SertifikatController::class, 'destroy'])->name('sertifikat.destroy');
     Route::post('/sertifikat', [SertifikatController::class, 'store'])->name('sertifikat.store');
     Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
-
 });
 
 //Grfik
@@ -87,8 +92,7 @@ Route::middleware(['auth'])->group(function () {
 // Route untuk dashboard admin (hanya diakses oleh admin)
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-});
-;
+});;
 
 // Akademik
 
@@ -162,6 +166,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('pelatihan/{id}', [PelatihanController::class, 'destroy'])->name('admin.pelatihan.destroy');
     Route::get('pelatihan/{pelatihanId}/participants', [PelatihanController::class, 'getParticipants'])->name('admin.pelatihan.participants');
     Route::post('pelatihan/update-status', [PelatihanController::class, 'updateStatus'])->name('admin.pelatihan.updateStatus');
+    Route::post('pelatihan/update-statusKelulusan', [PelatihanController::class, 'updateStatusKelulusan'])->name('admin.pelatihan.updateStatusKelulusan');
 });
 
 //Sertifikat

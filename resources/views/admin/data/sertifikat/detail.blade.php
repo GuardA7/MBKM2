@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Sertifikat Pengguna')
+@section('title', 'Halaman Detail Sertifikat')
 
 @section('content')
     <div class="container-fluid px-4">

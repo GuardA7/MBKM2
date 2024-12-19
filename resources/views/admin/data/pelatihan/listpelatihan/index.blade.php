@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Pelatihan')
+@section('title', 'Halaman List Pelatihan')
 
 @section('content')
 
@@ -199,5 +199,4 @@
             });
         </script>
     @endpush
-
 @endsection

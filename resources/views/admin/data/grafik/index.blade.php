@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Halaman Grafik')
+
 @section('content')
     <div class="container-fluid px-4">
         <h1 class="mt-4">Grafik Sertifikat</h1>

@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Halaman Edit Pelatihan')
+
 @section('content')
     <main>
         <div class="container-fluid px-4">

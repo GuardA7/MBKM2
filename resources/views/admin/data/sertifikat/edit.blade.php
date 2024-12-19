@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Sertifikat Pengguna')
+@section('title', 'Halaman Edit Sertifikat')
 
 @section('content')
     <main>

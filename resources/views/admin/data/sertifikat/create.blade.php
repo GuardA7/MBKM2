@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Tambah Sertifikat Pengguna')
+@section('title', 'Halaman Tambah Sertifikat')
 
 @section('content')
     <main>

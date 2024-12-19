@@ -9,13 +9,6 @@
                 <li class="breadcrumb-item active">Profile</li>
             </ol>
 
-            @if (session('edit_success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Edit Berhasil!</strong> Profile telah berhasil diedit.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             <!-- Profile Form -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -31,14 +24,14 @@
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" name="nama" id="nama"
-                                           value="{{ $admin->nama }}" required>
+                                           value="{{ $admin->nama }}" readonly>
                                 </div>
 
                                 <!-- Email Field -->
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" id="email"
-                                           value="{{ $admin->email }}" required>
+                                           value="{{ $admin->email }}" readonly>
                                 </div>
 
                                 <!-- Update Button -->

@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('title', 'Halaman Tambah Lsp')
+
 @section('content')
     <main>
         <div class="container-fluid px-4">
