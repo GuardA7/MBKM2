@@ -21,9 +21,11 @@ use App\Http\Controllers\KategoriPelatihanController;
 
 //profile
 Route::prefix('user')->middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfilUserController::class, 'show'])->name('profile.user');
-    Route::post('/profile/update', [ProfilUserController::class, 'updateProfile'])->name('user.updateProfile');
-    Route::post('/profile/password', [ProfilUserController::class, 'updatePassword'])->name('user.updatePassword');
+    Route::get('/profile/dosen', [ProfilUserController::class, 'showDosenProfile'])->name('profile.dosen');
+    Route::get('/profile/mahasiswa', [ProfilUserController::class, 'showMahasiswaProfile'])->name('profile.mahasiswa');
+    Route::get('/profile/masyarakat', [ProfilUserController::class, 'showMasyarakatProfile'])->name('profile.umum');
+    Route::put('/user/update-profile', [UserController::class, 'updateProfile'])->name('user.updateProfile');
+    Route::put('/user/update-password', [UserController::class, 'updatepassword'])->name('user.updatePassword');
 });;
 
 Route::get('/chart', [ChartController::class, 'index'])->name('grafik.presentase');

@@ -6,7 +6,8 @@
 
     <!-- Navbar Brand (Logo) -->
     <a class="navbar-brand ps-2" href="/index">
-        <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Upa Polindra" style="width: auto; max-height: 40px;">
+        <img src="https://tikom.polindra.ac.id/wp-content/uploads/2024/06/group_1_3x.webp" alt="Upa Polindra"
+            style="width: auto; max-height: 40px;">
     </a>
 
     <!-- Spacer to push notifications and profile to the end -->
@@ -17,7 +18,8 @@
 
         <!-- Notification Button -->
         <li class="nav-item dropdown me-3">
-            <a class="nav-link" id="notificationDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" id="notificationDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Badge to show number of notifications -->
                 <span class="badge bg-danger">3</span>
@@ -30,13 +32,25 @@
 
         <!-- Profile Button -->
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user fa-fw"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end me-2" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ route('profile.user') }}">Profile</a></li>
+                @if (Auth::user()->role === 'dosen')
+                    <li><a class="dropdown-item" href="{{ route('profile.dosen', ['action' => 'detail']) }}">Profile</a>
+                    </li>
+                @elseif(Auth::user()->role === 'mahasiswa')
+                    <li><a class="dropdown-item"
+                            href="{{ route('profile.mahasiswa', ['action' => 'detail']) }}">Profile</a></li>
+                @elseif(Auth::user()->role === 'masyarakat')
+                    <li><a class="dropdown-item"
+                            href="{{ route('profile.masyarakat', ['action' => 'detail']) }}">Profile</a></li>
+                @endif
                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                <li><hr class="dropdown-divider" /></li>
+                <li>
+                    <hr class="dropdown-divider" />
+                </li>
                 <li>
                     <form action="{{ route('logout') }}" method="get">
                         @csrf
